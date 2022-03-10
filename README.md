@@ -1,4 +1,4 @@
-# Laravel React MongoDB Blog App
+<!-- # Laravel React MongoDB Blog App
 
 An example Blog App built with Laravel, React and MongoDB. It includes:
 
@@ -123,4 +123,4 @@ Laravel sends emails for password resets. The default for MAIL_DRIVER in .env.ex
 
 **Laravel Docs:**
 
-[https://laravel.com/docs/](https://laravel.com/docs/)
+[https://laravel.com/docs/](https://laravel.com/docs/) -->
