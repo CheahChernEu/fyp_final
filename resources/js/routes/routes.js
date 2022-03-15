@@ -8,9 +8,10 @@ import NoMatch from "../pages/NoMatch";
 import AdminDashboard from "../pages/AdminDashboard";
 import AddSlot from "../pages/AddSlot";
 import ViewReservation from "../pages/ViewReservation";
-import AddStaff from "../pages/AddStaff";
+// import AddStaff from "../pages/AddStaff";
 import OwnerDashboard from "../pages/OwnerPage/OwnerDashboard";
 import Homepage from "../Homepage/Homepage";
+import Add_Staff from "../pages/AddStaff";
 
 const routes = [
     {
@@ -38,10 +39,10 @@ const routes = [
         component: AdminDashboard,
     },
     {
-        path: "/add-staff",
+        path: "/addStaff",
         exact: true,
         auth: true,
-        component: AddStaff,
+        component: Add_Staff,
     },
     {
         path: "/add-slot",

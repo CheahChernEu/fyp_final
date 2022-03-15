@@ -38,28 +38,19 @@ const Login = (props) => {
             ? props.location.state || {
                   from: { pathname: "/owner" },
               }
-            : props.location.state || {
+            : res.type === "admin"
+            ? props.location.state || {
                   from: { pathname: "/admin" },
+              }
+            : res.type === "superadmin"
+            ? props.location.state || {
+                  from: { pathname: "/addStaff" },
+              }
+            : props.location.state || {
+                  from: { pathname: "/home" },
               };
 
     const { isAuthenticated } = props;
-
-    const navigation = () => {
-        console.log(res.type);
-        if (res.type === "admin") {
-            return (
-                props.location.state || {
-                    from: { pathname: "/admin" },
-                }
-            );
-        } else if (res.type === "user") {
-            return (
-                props.location.state || {
-                    from: { pathname: "/owner" },
-                }
-            );
-        }
-    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
