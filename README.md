@@ -6,15 +6,13 @@ _If you need to connfig MongoDB for PHP, [instructions here](https://www.php.net
 
 ## Set Up
 
-#### Create your environment file:
+#### Create your environment file: (Copy Paste .env.example file)
 
 ```bash
 cp .env.example .env
 ```
 
-_The app key is used to salt passwords. If you need to work with production data you'll want to use the same app key as defined in the .env file in production so password hashes match._
-
-#### Update these settings in the .env file:
+#### Update these settings in the .env file: (MongoDB Atlas has been used)
 
 -   MONGO_DB_CONNECTION=mongodb
 -   MONGO_DB_HOST=127.0.0.1

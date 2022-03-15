@@ -30,14 +30,12 @@ const routes = [
         exact: true,
         auth: true,
         component: OwnerDashboard,
-        fallback: Home,
     },
     {
         path: "/admin",
         exact: true,
         auth: true,
         component: AdminDashboard,
-        fallback: Home,
     },
     {
         path: "/add-staff",

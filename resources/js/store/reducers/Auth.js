@@ -2,9 +2,9 @@ import * as ActionTypes from "../action-types";
 import Http from "../../Http";
 
 const defaultUser = {
-    id: null,
-    name: null,
-    email: null,
+    id: "",
+    name: "",
+    email: "",
 };
 
 const initialState = {

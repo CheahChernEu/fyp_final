@@ -1,4 +1,4 @@
-import React, { useState, useEffect, setState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
@@ -16,27 +16,46 @@ const Home = (props) => {
         password: "",
         licenseNo: "",
     });
+
+    const [res, setRes] = useState({});
+
+    const [userData, setUserData] = useState({
+        id: "",
+        licenseNo: "",
+        type: "",
+    });
+
+    const [credentials, setCredentials] = useState({
+        email: "",
+        password: "",
+        licenseNo: "",
+    });
+
     const [loading, setLoading] = useState(false);
     const [response, setResponse] = useState({ error: false, message: "" });
-    const [userData, setUserData] = useState({ licenseNo: "", type: "" });
-    const { from } = props.location.state || {
-        from: { pathname: "/admin" },
-    };
-    const [age, setAge] = useState(19);
-    // const userData = { licenseNo: "", type: "" };
-    // If user is already authenticated we redirect to entry location.
+
+    console.log("Ressss", res.type);
+    const { from } =
+        res.type === "user"
+            ? props.location.state || {
+                  from: { pathname: "/owner" },
+              }
+            : props.location.state || {
+                  from: { pathname: "/admin" },
+              };
 
     const { isAuthenticated } = props;
 
-    const navigation = (userData) => {
-        if (userData.type === "admin") {
-            setFrom(
+    const navigation = () => {
+        console.log(res.type);
+        if (res.type === "admin") {
+            return (
                 props.location.state || {
                     from: { pathname: "/admin" },
                 }
             );
-        } else if (userData.type === "user") {
-            setFrom(
+        } else if (res.type === "user") {
+            return (
                 props.location.state || {
                     from: { pathname: "/owner" },
                 }
@@ -61,58 +80,43 @@ const Home = (props) => {
     };
 
     const onSubmit = () => {
-        //e.preventDefault();
+        // e.preventDefault();
+        console.log({ stateForm });
         const { email, password, licenseNo } = stateForm;
-        const credentials = {
+        setCredentials({
             email,
             password,
             licenseNo,
-        };
+        });
         setLoading(true);
-        submit(credentials);
     };
 
-    function submit(credentials) {
+    useEffect(() => {
+        if (!credentials) return;
+        let isSubscribed = true;
+        props
+            .dispatch(AuthService.login(credentials))
+            .then((response) => {
+                isSubscribed ? setRes(response) : null;
+            })
+            .catch((err) => {
+                const errorsCredentials = Object.values(err.errors);
+                errorsCredentials.join(" ");
+                const responses = {
+                    error: true,
+                    message: errorsCredentials[0],
+                };
+                setLoading(false);
+            });
+        return () => (isSubscribed = false);
+    }, [credentials]);
 
-            let isMounted = true;
-
-            if (isMounted) {
-                props
-                    .dispatch(AuthService.login(credentials))
-                    .then((response) => {
-                        userData.licenseNo = response["licenseNo"];
-
-                        userData.type = response["type"];
-                        console.log(userData);
-                        // navigation(userData);
-                        console.log("Navigation");
-                        // console.log(navigation(userData));
-                        console.log(setAge(age + 1));
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                        const errorsCredentials = Object.values(err.errors);
-                        errorsCredentials.join(" ");
-                        const responses = {
-                            error: true,
-                            message: errorsCredentials[0],
-                        };
-
-                        console.log(setResponse(responses));
-                        setLoading(false);
-                    });
-            }
-
-            return () => {
-                isMounted = false;
-            };
-        
-    }
 
     return (
         <>
-            {isAuthenticated && <Redirect to={from} />}
-
+            {isAuthenticated && typeof res.type !== "undefined" && (
+                <Redirect to={from} />
+            )}
             <AdminHeader />
             <div className="d-flex flex-column flex-md-row align-items-md-center py-5">
                 <div className="container">

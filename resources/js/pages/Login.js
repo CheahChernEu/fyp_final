@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
@@ -14,12 +14,52 @@ const Login = (props) => {
         password: "",
         licenseNo: "",
     });
+
+    const [res, setRes] = useState({});
+
+    const [userData, setUserData] = useState({
+        id: "",
+        licenseNo: "",
+        type: "",
+    });
+
+    const [credentials, setCredentials] = useState({
+        email: "",
+        password: "",
+        licenseNo: "",
+    });
+
     const [loading, setLoading] = useState(false);
     const [response, setResponse] = useState({ error: false, message: "" });
 
-    // If user is already authenticated we redirect to entry location.
-    const { from } = props.location.state || { from: { pathname: "/owner" } };
+    console.log("Ressss", res.type);
+    const { from } =
+        res.type === "user"
+            ? props.location.state || {
+                  from: { pathname: "/owner" },
+              }
+            : props.location.state || {
+                  from: { pathname: "/admin" },
+              };
+
     const { isAuthenticated } = props;
+
+    const navigation = () => {
+        console.log(res.type);
+        if (res.type === "admin") {
+            return (
+                props.location.state || {
+                    from: { pathname: "/admin" },
+                }
+            );
+        } else if (res.type === "user") {
+            return (
+                props.location.state || {
+                    from: { pathname: "/owner" },
+                }
+            );
+        }
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -38,35 +78,42 @@ const Login = (props) => {
     };
 
     const onSubmit = () => {
-        //e.preventDefault();
+        // e.preventDefault();
+        console.log({ stateForm });
         const { email, password, licenseNo } = stateForm;
-        const credentials = {
+        setCredentials({
             email,
             password,
             licenseNo,
-        };
-        setLoading(true);
-
-        submit(credentials);
-    };
-
-    const submit = (credentials) => {
-        props.dispatch(AuthService.login(credentials)).catch((err) => {
-            // console.log(err);
-            const errorsCredentials = Object.values(err.errors);
-            errorsCredentials.join(" ");
-            const responses = {
-                error: true,
-                message: errorsCredentials[0],
-            };
-            setResponse(responses);
-            setLoading(false);
         });
+        setLoading(true);
     };
+
+    useEffect(() => {
+        if (!credentials) return;
+        let isSubscribed = true;
+        props
+            .dispatch(AuthService.login(credentials))
+            .then((response) => {
+                isSubscribed ? setRes(response) : null;
+            })
+            .catch((err) => {
+                const errorsCredentials = Object.values(err.errors);
+                errorsCredentials.join(" ");
+                const responses = {
+                    error: true,
+                    message: errorsCredentials[0],
+                };
+                setLoading(false);
+            });
+        return () => (isSubscribed = false);
+    }, [credentials]);
 
     return (
         <>
-            {isAuthenticated && <Redirect to={from} />}
+            {isAuthenticated && typeof res.type !== "undefined" && (
+                <Redirect to={from} />
+            )}
             <AdminHeader />
             <div className="d-flex flex-column flex-row align-content-center py-5">
                 <div className="container">
