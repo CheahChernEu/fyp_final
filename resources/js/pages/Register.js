@@ -329,7 +329,7 @@ const Register = (props) => {
 
                             {!success && (
                                 <div className="password-reset-link text-center">
-                                    <Link to="/" href="/">
+                                    <Link to="/Login" href="/Login">
                                         Already registered? Log in.
                                     </Link>
                                 </div>

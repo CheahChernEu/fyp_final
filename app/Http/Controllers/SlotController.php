@@ -57,8 +57,11 @@ class SlotController extends ApiController
 
         // Validate all the required parameters have been sent.
         $validator = Validator::make($request->all(), [
-            'content' => 'required',
-            'title' => 'required',
+            'address' => 'required',
+            'slotID' => 'required',
+            'lat' => 'required',
+            'lng' => 'required',
+            'price' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -69,9 +72,14 @@ class SlotController extends ApiController
         try {
             $slot = Slot::create([
                 'user_id' => $user->id,
-                'content' => request('content'),
-                'title' => request('title'),
-                'image_url' => request('image_url'),
+                'address' => request('address'),
+                'slotID' => request('slotID'),
+                'slotImage' => request('slotImage'),
+                'lat' => request('lat'),
+                'lng' => request('lng'),
+                'price' => request('price'),
+                'rating' => request('rating'),
+                'review' => request('review'),
             ]);
             return response()->json([
                 'status' => 201,
@@ -120,9 +128,14 @@ class SlotController extends ApiController
 
         // Validates data.
         $validator = Validator::make($request->all(), [
-            'content' => 'string',
-            'title' => 'string',
-            'image_url' => 'string',
+            'address' => 'string',
+            'slotID' => 'string',
+            'slotImage' => 'string',
+            'lat' => 'float',
+            'lng' => 'float',
+            'price' => 'double',
+            'rating' => 'integer',
+            'review' => 'string',
         ]);
 
         if ($validator->fails()) {
@@ -132,23 +145,29 @@ class SlotController extends ApiController
         try {
             $slot = Slot::where('_id', $id)->firstOrFail();
             if ($slot['user_id'] === $user->id) {
-                if (request('title')) {
-                    $slot->title = request('title');
+                if (request('slotID')) {
+                    $slot->slotID = request('slotID');
                 }
-                if (request('content')) {
-                    $slot->content = request('content');
+                if (request('address')) {
+                    $slot->address = request('address');
                 }
-                if (request('slug')) {
-                    $slot->slug = request('slug');
+                if (request('slotImage')) {
+                    $slot->slotImage = request('slotImage');
                 }
-                if (request('cat_id')) {
-                    $slot->cat_id = request('cat_id');
+                if (request('lat')) {
+                    $slot->lat = request('lat');
                 }
-                if (request('image_url')) {
-                    $slot->image_url = request('image_url');
+                if (request('lng')) {
+                    $slot->lng = request('lng');
                 }
-                if (request('status')) {
-                    $slot->status = request('status');
+                if (request('price')) {
+                    $slot->price = request('price');
+                }
+                if (request('rating')) {
+                    $slot->rating = request('rating');
+                }
+                if (request('review')) {
+                    $slot->review = request('review');
                 }
                 $slot->save();
                 return $this->responseResourceUpdated();

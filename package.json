@@ -30,8 +30,10 @@
         "@fortawesome/fontawesome-svg-core": "^1.2.32",
         "@fortawesome/free-solid-svg-icons": "^5.15.1",
         "@fortawesome/react-fontawesome": "^0.1.14",
+        "@reach/combobox": "^0.16.5",
         "@react-google-maps/api": "^2.7.0",
         "classnames": "^2.2.6",
+        "date-fns": "^2.28.0",
         "react-bootstrap": "^1.4.3",
         "react-hook-form": "^6.14.1",
         "react-icons": "^4.3.1",
@@ -43,6 +45,7 @@
         "redux-persist": "^6.0.0",
         "redux-thunk": "^2.3.0",
         "ree-validate": "^3.3.0",
-        "sweetalert": "^2.1.2"
+        "sweetalert": "^2.1.2",
+        "use-places-autocomplete": "^2.0.0"
     }
 }

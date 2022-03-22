@@ -3,7 +3,47 @@ import Http from "../Http";
 import { useForm } from "react-hook-form";
 import swal from "sweetalert";
 import AdminHeader from './../components/AdminHeader';
+import {
+    GoogleMap,
+    useLoadScript,
+    Marker,
+    InfoWindow,
+} from "@react-google-maps/api";
+import usePlacesAutocomplete, {
+    getGeocode,
+    getLatLng,
+} from "use-places-autocomplete";
+import {
+    Combobox,
+    ComboboxInput,
+    ComboboxPopover,
+    ComboboxList,
+    ComboboxOption,
+} from "@reach/combobox";
+import { formatRelative } from "date-fns";
+import { FaLocationArrow } from 'react-icons/fa';
+import "@reach/combobox/styles.css";
+import AddSlotMapStyles from "./AddSlotMapStyles";
+
 const api = "/api/v1/slot";
+
+const libraries = ["places"];
+
+const mapContainerStyle = {
+  height: "40vh",
+  width: "40vw",
+};
+
+const options = {
+  styles: AddSlotMapStyles,
+  disableDefaultUI: true,
+  zoomControl: true,
+};
+
+const center = {
+  lat: 3.140853,
+  lng: 101.693207,
+};
 
 const AddSlot = () => {
     const session = JSON.parse(window.localStorage.getItem("user"));
@@ -12,9 +52,14 @@ const AddSlot = () => {
     const [dataState, setData] = useState([]);
     const [error, setError] = useState(false);
     const [stateForm, setStateForm] = useState({
-        content: "",
-        title: "",
-        image_url: "",
+        address: "",
+        slotID: "",
+        slotImage: "",
+        lat: "",
+        lng: "",
+        price: "",
+        review: null,
+        rating: null,
     });
 
     useEffect(() => {
@@ -54,9 +99,14 @@ const AddSlot = () => {
                     filterSlots = [slot, ...filterSlots];
                     setData(filterSlots);
                     setStateForm({
-                        content: "",
-                        title: "",
-                        image_url: "",
+                        address: "",
+                        slotID: "",
+                        slotImage: "",
+                        lat: "",
+                        lng: "",
+                        price: "",
+                        review: null,
+                        rating: null,
                     });
                     setError(false);
                 })
@@ -72,9 +122,14 @@ const AddSlot = () => {
                     const allSlots = [slot, ...dataState];
                     setData(allSlots);
                     setStateForm({
-                        content: "",
-                        title: "",
-                        image_url: "",
+                        address: "",
+                        slotID: "",
+                        slotImage: "",
+                        lat: "",
+                        lng: "",
+                        price: "",
+                        review: "",
+                        rating: "",
                     });
                     setError(false);
                 })
@@ -96,7 +151,7 @@ const AddSlot = () => {
     const deleteSlot = (e) => {
         const { key } = e.target.dataset;
         swal({
-            title: "Are you sure?",
+            slotID: "Are you sure?",
             text: "Once deleted, you will not be able to recover this food truck slot!",
             icon: "warning",
             buttons: true,
@@ -138,6 +193,38 @@ const AddSlot = () => {
             }
         });
     };
+
+    const { isLoaded, loadError } = useLoadScript({
+        googleMapsApiKey: "AIzaSyCw9FAbOyHnq202RNFWEC5dsMTQfa-IHeE",
+        libraries,
+    });
+    const [markers, setMarkers] = React.useState([]);
+    const [selected, setSelected] = React.useState(null);
+
+    const onMapClick = React.useCallback((e) => {
+        setMarkers((current) => [
+            ...current,
+            {
+            lat: e.latLng.lat(),
+            lng: e.latLng.lng(),
+            time: new Date(),
+            },
+        ]);
+    }, []);
+
+    const mapRef = React.useRef();
+    const onMapLoad = React.useCallback((map) => {
+    mapRef.current = map;
+    }, []);
+
+    const panTo = React.useCallback(({ lat, lng }) => {
+    mapRef.current.panTo({ lat, lng });
+    mapRef.current.setZoom(14);
+    }, []);
+
+    if (loadError) return "Error";
+    if (!isLoaded) return "Loading...";
+    
     return (
         <>
             <AdminHeader />
@@ -153,21 +240,21 @@ const AddSlot = () => {
                                 onSubmit={handleSubmit(onSubmit)}
                             >
                                 <div className="form-group">
-                                    <label htmlFor="title">Slot No</label>
+                                    <label htmlFor="slotID">Slot ID</label>
                                     <input
-                                        id="title"
-                                        type="title"
-                                        name="title"
+                                        id="slotID"
+                                        type="slotID"
+                                        name="slotID"
                                         className="form-control mr-3"
                                         placeholder="e.g. B01"
                                         required
                                         onChange={handleChange}
-                                        value={stateForm.title}
+                                        value={stateForm.slotID}
                                         maxLength={100}
                                         minLength={3}
                                         ref={register({ required: true })}
                                     />
-                                    {errors.title && (
+                                    {errors.slotID && (
                                         <span className="invalid-feedback">
                                             This field is required
                                         </span>
@@ -176,42 +263,108 @@ const AddSlot = () => {
                                 <div className="form-group">
                                     <label htmlFor="addSlot">Address</label>
                                     <textarea
-                                        name="content"
-                                        id="content"
-                                        name="content"
+                                        name="address"
+                                        id="address"
+                                        name="address"
                                         required
                                         maxLength={1000}
                                         minLength={10}
                                         className="form-control mr-3"
                                         placeholder="e.g. 4C, Jalan Ipoh"
                                         onChange={handleChange}
-                                        value={stateForm.content}
+                                        value={stateForm.address}
                                         ref={register()}
                                     />
 
-                                    {errors.content && (
+                                    {errors.address && (
                                         <span className="invalid-feedback">
                                             This field is required.
                                         </span>
                                     )}
                                 </div>
                                 <div className="form-group">
-                                    <label htmlFor="image_url">
-                                        Slot Image Url
+                                    <label htmlFor="addSlot">Price in RM</label>
+                                    <input
+                                        name="price"
+                                        id="price"
+                                        name="price"
+                                        required
+                                        maxLength={100}
+                                        minLength={3}
+                                        className="form-control mr-3"
+                                        placeholder="e.g. 100"
+                                        onChange={handleChange}
+                                        value={stateForm.price}
+                                        ref={register()}
+                                    />
+
+                                    {errors.price && (
+                                        <span className="invalid-feedback">
+                                            This field is required.
+                                        </span>
+                                    )}
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="slotImage">
+                                        Slot Image
                                     </label>
                                     <input
-                                        id="image_url"
-                                        type="url"
-                                        name="image_url"
-                                        maxLength={100}
+                                        id="slotImage"
+                                        type="file"
+                                        name="slotImage"
                                         className="form-control mr-3"
-                                        placeholder="e.g.https://image.app.goo.gl"
+                                        style={{border: 'none'}}
                                         onChange={handleChange}
-                                        maxLength={70}
-                                        value={stateForm.image_url}
+                                        value={stateForm.slotImage}
                                         ref={register()}
                                     />
                                 </div>
+                                <div className="form-group">
+                                    <label htmlFor="map">
+                                        Location
+                                    </label>
+                                    <div></div>
+                                    <Locate panTo={panTo} />
+                                    <Search panTo={panTo} />
+
+                                    <GoogleMap
+                                        id="map"
+                                        mapContainerStyle={mapContainerStyle}
+                                        zoom={8}
+                                        center={center}
+                                        options={options}
+                                        onClick={onMapClick}
+                                        onLoad={onMapLoad}
+                                    >
+                                        {markers.map((marker) => (
+                                        <Marker
+                                            key={`${marker.lat}-${marker.lng}`}
+                                            position={{ lat: marker.lat, lng: marker.lng }}
+                                            onClick={() => {
+                                                setSelected(marker);
+
+                                            }}
+                                        />
+                                        ))}
+
+                                        {selected ? (
+                                        <InfoWindow
+                                            position={{ lat: selected.lat, lng: selected.lng }}
+                                            onCloseClick={() => {
+                                            setSelected(null);
+                                            }}
+                                        >
+                                            <div>
+                                                <h2>
+                                                    Food Truck Slot
+                                                </h2>
+                                                <p>Selected {formatRelative(selected.time, new Date())} Latitude: {selected.lat} Longitude: {selected.lng}</p>
+                                            </div>
+                                        </InfoWindow>
+                                        ) : null}
+                                    </GoogleMap>
+                                </div>
+                                <div></div>
                                 <button
                                     type="submit"
                                     className="btn btn-block btn-outline-primary"
@@ -234,7 +387,7 @@ const AddSlot = () => {
                             <table className="table table-striped">
                                 <tbody>
                                     <tr>
-                                        <th>Slot No</th>
+                                        <th>Slot ID</th>
                                         <th>Address</th>
                                         <th>Slot Image</th>
                                         <th>Delete</th>
@@ -243,15 +396,15 @@ const AddSlot = () => {
                                     {dataState.length > 0 &&
                                         dataState.map((slot) => (
                                             <tr key={slot.id}>
-                                                <td>{slot.title}</td>
+                                                <td>{slot.slotID}</td>
                                                 <td>
-                                                    {slot.content
+                                                    {slot.address
                                                         .slice(0, 30)
                                                         .concat("...")}
                                                 </td>
                                                 <td>
                                                     <img
-                                                        src={slot.image_url}
+                                                        src={slot.slotImage}
                                                         className="rounded mx-auto d-block"
                                                     ></img>
                                                 </td>
@@ -304,4 +457,80 @@ const AddSlot = () => {
     );
 };
 
+function Locate({ panTo }) {
+    return (
+      <button
+        className="locate"
+        onClick={() => {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              panTo({
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+              });
+            },
+            () => null
+          );
+        }}
+      >
+        <FaLocationArrow /> Use Current Location
+      </button>
+    );
+  }
+
+  function Search({ panTo }) {
+    const {
+      ready,
+      value,
+      suggestions: { status, data },
+      setValue,
+      clearSuggestions,
+    } = usePlacesAutocomplete({
+      requestOptions: {
+        location: { lat: () => 43.6532, lng: () => -79.3832 },
+        radius: 100 * 500,
+      },
+    });
+  
+    // https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service#AutocompletionRequest
+  
+    const handleInput = (e) => {
+      setValue(e.target.value);
+    };
+  
+    const handleSelect = async (address) => {
+      setValue(address, false);
+      clearSuggestions();
+  
+      try {
+        const results = await getGeocode({ address });
+        const { lat, lng } = await getLatLng(results[0]);
+        panTo({ lat, lng });
+      } catch (error) {
+        console.log("Error: ", error);
+      }
+    };
+  
+    return (
+      <div className="search">
+        <Combobox onSelect={handleSelect}>
+          <ComboboxInput
+            value={value}
+            onChange={handleInput}
+            disabled={!ready}
+            placeholder="Search your location"
+          />
+          <ComboboxPopover>
+            <ComboboxList>
+              {status === "OK" &&
+                data.map(({ id, description }) => (
+                  <ComboboxOption key={id} value={description} />
+                ))}
+            </ComboboxList>
+          </ComboboxPopover>
+        </Combobox>
+      </div>
+    );
+  }
+  
 export default AddSlot;
