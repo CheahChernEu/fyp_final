@@ -8,10 +8,12 @@ import NoMatch from "../pages/NoMatch";
 import AdminDashboard from "../pages/AdminDashboard";
 import AddSlot from "../pages/AddSlot";
 import ViewReservation from "../pages/ViewReservation";
-// import AddStaff from "../pages/AddStaff";
-import OwnerDashboard from "../pages/OwnerPage/OwnerDashboard";
 import Homepage from "../Homepage/Homepage";
 import Add_Staff from "../pages/AddStaff";
+//Owner
+import OwnerDashboard from "../FTruckOwner/components/OwnerDashboard";
+import ReservationStatus from "../FTruckOwner/components/Reservation";
+import ViewFoodTruckSlot from "../FTruckOwner/components/ViewFoodTruckSlot";
 
 const routes = [
     {
@@ -37,6 +39,18 @@ const routes = [
         exact: true,
         auth: true,
         component: AdminDashboard,
+    },
+    {
+        path: "/viewFoodTruckSlot",
+        exact: true,
+        auth: true,
+        component: ViewFoodTruckSlot,
+    },
+    {
+        path: "/reservationStatus",
+        exact: true,
+        auth: true,
+        component: ReservationStatus,
     },
     {
         path: "/addStaff",

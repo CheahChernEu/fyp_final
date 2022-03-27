@@ -5,7 +5,6 @@ import { Provider } from "react-redux";
 import Routes from "./routes";
 import store from "./store";
 import * as action from "./store/actions";
-
 store.dispatch(action.authCheck());
 
 ReactDOM.render(
@@ -16,5 +15,7 @@ ReactDOM.render(
             </Switch>
         </Router>
     </Provider>,
+
+    // <App />,
     document.getElementById("app")
 );
