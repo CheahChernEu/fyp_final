@@ -18,9 +18,14 @@ class CreateSlotsTable extends Migration
             $table->timestamps('updated_at');
             $table->increments('id');
             $table->integer('user_id');
-            $table->string('content');
-            $table->string('image_url');
-            $table->string('title');
+            $table->string('address');
+            $table->string('slotImage');
+            $table->string('slotID');
+            $table->float('lat');
+            $table->float('lng');
+            $table->float('price');
+            $table->string('review');
+            $table->integer('rating');
         });
     }
 

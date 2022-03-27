@@ -17,9 +17,14 @@ class SlotResource extends ApiResource
             'updated_at' => (string)$this->updated_at->toDateTimeString(),
             'id' => $this->id,
             'user_id' => $this->user_id,
-            'title' => $this->title,
-            'content' => $this->content,
-            'image_url' => $this->image_url,
+            'slotID' => $this->slotID,
+            'address' => $this->address,
+            'slotImage' => $this->slotImage,
+            'lat' => $this->lat,
+            'lng' => $this->lng,
+            'price' => $this->price,
+            'review' => $this->review,
+            'rating' => $this->rating,
         ];
     }
 }

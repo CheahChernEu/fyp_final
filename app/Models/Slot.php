@@ -16,12 +16,17 @@ class Slot extends Eloquent
      */
     protected $fillable = [
         'id', 
-        'title', 
-        'content', 
-        'image_url', 
+        'slotID', 
+        'address', 
+        'slotImage', 
         'created_at', 
         'updated_at', 
         'user_id',
+        'lat',
+        'lng',
+        'price',
+        'review',
+        'rating',
     ];
 
     /**
