@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import Http from "../Http";
 import { useForm } from "react-hook-form";
 import swal from "sweetalert";
-import AdminHeader from './../components/AdminHeader';
+import Geocode from "react-geocode";
+import AdminHeader from "./../components/AdminHeader";
 import {
     GoogleMap,
     useLoadScript,
@@ -21,7 +22,7 @@ import {
     ComboboxOption,
 } from "@reach/combobox";
 import { formatRelative } from "date-fns";
-import { FaLocationArrow } from 'react-icons/fa';
+import { FaLocationArrow } from "react-icons/fa";
 import "@reach/combobox/styles.css";
 import AddSlotMapStyles from "./AddSlotMapStyles";
 
@@ -30,19 +31,19 @@ const api = "/api/v1/slot";
 const libraries = ["places"];
 
 const mapContainerStyle = {
-  height: "40vh",
-  width: "40vw",
+    height: "40vh",
+    width: "40vw",
 };
 
 const options = {
-  styles: AddSlotMapStyles,
-  disableDefaultUI: true,
-  zoomControl: true,
+    styles: AddSlotMapStyles,
+    disableDefaultUI: true,
+    zoomControl: true,
 };
 
 const center = {
-  lat: 3.140853,
-  lng: 101.693207,
+    lat: 3.140853,
+    lng: 101.693207,
 };
 
 const AddSlot = () => {
@@ -112,7 +113,7 @@ const AddSlot = () => {
                 })
                 .catch(() => {
                     setError(
-                        "Sorry, there was an error saving your food truck slot."
+                        "Sorry, there was an error nananana saving your food truck slot."
                     );
                 });
         } else {
@@ -135,7 +136,7 @@ const AddSlot = () => {
                 })
                 .catch(() => {
                     setError(
-                        "Sorry, there was an error saving your food truck slot."
+                        "Sorry, there was an error hehehehe saving your food truck slot."
                     );
                 });
         }
@@ -198,36 +199,53 @@ const AddSlot = () => {
         googleMapsApiKey: "AIzaSyCw9FAbOyHnq202RNFWEC5dsMTQfa-IHeE",
         libraries,
     });
-    const [markers, setMarkers] = React.useState([]);
+    const [marker, setMarkers] = React.useState({});
     const [selected, setSelected] = React.useState(null);
 
     const onMapClick = React.useCallback((e) => {
-        setMarkers((current) => [
-            ...current,
-            {
+        setMarkers({
             lat: e.latLng.lat(),
             lng: e.latLng.lng(),
             time: new Date(),
+        });
+        Geocode.setApiKey("AIzaSyCw9FAbOyHnq202RNFWEC5dsMTQfa-IHeE");
+
+        Geocode.setLanguage("en");
+
+        Geocode.fromLatLng(e.latLng.lat(), e.latLng.lng()).then(
+            (response) => {
+                const address = response.results[0].formatted_address;
+                console.log(address);
+                setStateForm({
+                    ...stateForm,
+                    address: address,
+                    lat: e.latLng.lat(),
+                    lng: e.latLng.lng(),
+                });
             },
-        ]);
+            (error) => {
+                console.error(error);
+            }
+        );
     }, []);
 
     const mapRef = React.useRef();
     const onMapLoad = React.useCallback((map) => {
-    mapRef.current = map;
+        mapRef.current = map;
     }, []);
 
     const panTo = React.useCallback(({ lat, lng }) => {
-    mapRef.current.panTo({ lat, lng });
-    mapRef.current.setZoom(14);
+        mapRef.current.panTo({ lat, lng });
+        mapRef.current.setZoom(14);
     }, []);
 
     if (loadError) return "Error";
     if (!isLoaded) return "Loading...";
-    
+
     return (
         <>
             <AdminHeader />
+
             <div className="container py-5">
                 <div className="row">
                     <div className="col">
@@ -265,7 +283,6 @@ const AddSlot = () => {
                                     <textarea
                                         name="address"
                                         id="address"
-                                        name="address"
                                         required
                                         maxLength={1000}
                                         minLength={10}
@@ -287,7 +304,6 @@ const AddSlot = () => {
                                     <input
                                         name="price"
                                         id="price"
-                                        name="price"
                                         required
                                         maxLength={100}
                                         minLength={3}
@@ -313,16 +329,34 @@ const AddSlot = () => {
                                         type="file"
                                         name="slotImage"
                                         className="form-control mr-3"
-                                        style={{border: 'none'}}
+                                        style={{ border: "none" }}
                                         onChange={handleChange}
                                         value={stateForm.slotImage}
                                         ref={register()}
                                     />
                                 </div>
+                                {/* <input
+                                    name="lat"
+                                    id="lat"
+                                    required
+                                    className="form-control mr-3"
+                                    onChange={handleChange}
+                                    value={marker.lat}
+                                    ref={register()}
+                                    readOnly
+                                />
+                                <input
+                                    name="lng"
+                                    id="lng"
+                                    required
+                                    className="form-control mr-3"
+                                    onChange={handleChange}
+                                    value={marker.lng}
+                                    ref={register()}
+                                    readOnly
+                                /> */}
                                 <div className="form-group">
-                                    <label htmlFor="map">
-                                        Location
-                                    </label>
+                                    <label htmlFor="map">Location</label>
                                     <div></div>
                                     <Locate panTo={panTo} />
                                     <Search panTo={panTo} />
@@ -336,31 +370,41 @@ const AddSlot = () => {
                                         onClick={onMapClick}
                                         onLoad={onMapLoad}
                                     >
-                                        {markers.map((marker) => (
                                         <Marker
                                             key={`${marker.lat}-${marker.lng}`}
-                                            position={{ lat: marker.lat, lng: marker.lng }}
+                                            position={{
+                                                lat: marker.lat,
+                                                lng: marker.lng,
+                                            }}
                                             onClick={() => {
                                                 setSelected(marker);
-
                                             }}
                                         />
-                                        ))}
 
                                         {selected ? (
-                                        <InfoWindow
-                                            position={{ lat: selected.lat, lng: selected.lng }}
-                                            onCloseClick={() => {
-                                            setSelected(null);
-                                            }}
-                                        >
-                                            <div>
-                                                <h2>
-                                                    Food Truck Slot
-                                                </h2>
-                                                <p>Selected {formatRelative(selected.time, new Date())} Latitude: {selected.lat} Longitude: {selected.lng}</p>
-                                            </div>
-                                        </InfoWindow>
+                                            <InfoWindow
+                                                position={{
+                                                    lat: selected.lat,
+                                                    lng: selected.lng,
+                                                }}
+                                                onCloseClick={() => {
+                                                    setSelected(null);
+                                                }}
+                                            >
+                                                <div>
+                                                    <h2>Food Truck Slot</h2>
+                                                    <p>
+                                                        Selected{" "}
+                                                        {formatRelative(
+                                                            selected.time,
+                                                            new Date()
+                                                        )}{" "}
+                                                        Latitude: {selected.lat}{" "}
+                                                        Longitude:{" "}
+                                                        {selected.lng}
+                                                    </p>
+                                                </div>
+                                            </InfoWindow>
                                         ) : null}
                                     </GoogleMap>
                                 </div>
@@ -459,78 +503,78 @@ const AddSlot = () => {
 
 function Locate({ panTo }) {
     return (
-      <button
-        className="locate"
-        onClick={() => {
-          navigator.geolocation.getCurrentPosition(
-            (position) => {
-              panTo({
-                lat: position.coords.latitude,
-                lng: position.coords.longitude,
-              });
-            },
-            () => null
-          );
-        }}
-      >
-        <FaLocationArrow /> Use Current Location
-      </button>
+        <button
+            className="locate"
+            onClick={() => {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        panTo({
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude,
+                        });
+                    },
+                    () => null
+                );
+            }}
+        >
+            <FaLocationArrow /> Use Current Location
+        </button>
     );
-  }
+}
 
-  function Search({ panTo }) {
+function Search({ panTo }) {
     const {
-      ready,
-      value,
-      suggestions: { status, data },
-      setValue,
-      clearSuggestions,
+        ready,
+        value,
+        suggestions: { status, data },
+        setValue,
+        clearSuggestions,
     } = usePlacesAutocomplete({
-      requestOptions: {
-        location: { lat: () => 43.6532, lng: () => -79.3832 },
-        radius: 100 * 500,
-      },
+        requestOptions: {
+            location: { lat: () => 43.6532, lng: () => -79.3832 },
+            radius: 100 * 500,
+        },
     });
-  
+
     // https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service#AutocompletionRequest
-  
+
     const handleInput = (e) => {
-      setValue(e.target.value);
+        setValue(e.target.value);
     };
-  
+
     const handleSelect = async (address) => {
-      setValue(address, false);
-      clearSuggestions();
-  
-      try {
-        const results = await getGeocode({ address });
-        const { lat, lng } = await getLatLng(results[0]);
-        panTo({ lat, lng });
-      } catch (error) {
-        console.log("Error: ", error);
-      }
+        setValue(address, false);
+        clearSuggestions();
+
+        try {
+            const results = await getGeocode({ address });
+            const { lat, lng } = await getLatLng(results[0]);
+            panTo({ lat, lng });
+        } catch (error) {
+            console.log("Error: ", error);
+        }
     };
-  
+
     return (
-      <div className="search">
-        <Combobox onSelect={handleSelect}>
-          <ComboboxInput
-            value={value}
-            onChange={handleInput}
-            disabled={!ready}
-            placeholder="Search your location"
-          />
-          <ComboboxPopover>
-            <ComboboxList>
-              {status === "OK" &&
-                data.map(({ id, description }) => (
-                  <ComboboxOption key={id} value={description} />
-                ))}
-            </ComboboxList>
-          </ComboboxPopover>
-        </Combobox>
-      </div>
+        <div className="search">
+            <Combobox onSelect={handleSelect}>
+                <ComboboxInput
+                    value={value}
+                    onChange={handleInput}
+                    disabled={!ready}
+                    placeholder="Search your location"
+                />
+                <ComboboxPopover>
+                    <ComboboxList>
+                        {status === "OK" &&
+                            data.map(({ id, description }) => (
+                                <ComboboxOption key={id} value={description} />
+                            ))}
+                    </ComboboxList>
+                </ComboboxPopover>
+            </Combobox>
+        </div>
     );
-  }
-  
+}
+
 export default AddSlot;

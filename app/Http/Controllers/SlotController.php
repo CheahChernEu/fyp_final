@@ -55,6 +55,7 @@ class SlotController extends ApiController
             return $this->responseUnauthorized();
         }
 
+
         // Validate all the required parameters have been sent.
         $validator = Validator::make($request->all(), [
             'address' => 'required',
