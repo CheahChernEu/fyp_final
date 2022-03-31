@@ -32,7 +32,7 @@ const libraries = ["places"];
 
 const mapContainerStyle = {
     height: "40vh",
-    width: "40vw",
+    width: "100%",
 };
 
 const options = {
@@ -61,6 +61,7 @@ const AddSlot = () => {
         price: "",
         review: null,
         rating: null,
+        slotStatus: "available",
     });
 
     useEffect(() => {
@@ -108,6 +109,7 @@ const AddSlot = () => {
                         price: "",
                         review: null,
                         rating: null,
+                        slotStatus: "available",
                     });
                     setError(false);
                 })
@@ -129,8 +131,9 @@ const AddSlot = () => {
                         lat: "",
                         lng: "",
                         price: "",
-                        review: "",
-                        rating: "",
+                        review: null,
+                        rating: null,
+                        slotStatus: "available",
                     });
                     setError(false);
                 })
@@ -433,24 +436,34 @@ const AddSlot = () => {
                                     <tr>
                                         <th>Slot ID</th>
                                         <th>Address</th>
+                                        <th>Price (in RM)</th>
                                         <th>Slot Image</th>
+                                        <th>Slot Status</th>
                                         <th>Delete</th>
                                         <th>Edit</th>
                                     </tr>
                                     {dataState.length > 0 &&
                                         dataState.map((slot) => (
                                             <tr key={slot.id}>
-                                                <td>{slot.slotID}</td>
+                                                <td>
+                                                    {slot.slotID}
+                                                </td>
                                                 <td>
                                                     {slot.address
                                                         .slice(0, 30)
                                                         .concat("...")}
                                                 </td>
                                                 <td>
+                                                    {slot.price}
+                                                </td>
+                                                <td>
                                                     <img
                                                         src={slot.slotImage}
                                                         className="rounded mx-auto d-block"
                                                     ></img>
+                                                </td>
+                                                <td>
+                                                    {slot.slotStatus}
                                                 </td>
                                                 <td>
                                                     <span

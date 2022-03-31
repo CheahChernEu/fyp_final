@@ -192,6 +192,10 @@ li {
     display: none;
   }
 
+  .logo{
+    display: none;
+  }
+
   .logo,
   .social-media ul {
     height: 7rem;

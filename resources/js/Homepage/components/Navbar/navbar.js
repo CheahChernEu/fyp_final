@@ -14,7 +14,6 @@ const Navbar = () => {
                 <div className="logo">
                     <h2>
                         <span>F</span>_Truck <span> </span>
-                        <span>O</span>fficials
                     </h2>
                 </div>
                 {/* 2nd menu part  */}
@@ -46,16 +45,6 @@ const Navbar = () => {
                                     className="btn btn-primary"
                                 >
                                     Login
-                                </button>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/register">
-                                <button
-                                    type="button"
-                                    className="btn btn-primary "
-                                >
-                                    Register
                                 </button>
                             </a>
                         </li>

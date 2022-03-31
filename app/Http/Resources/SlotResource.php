@@ -25,6 +25,8 @@ class SlotResource extends ApiResource
             'price' => $this->price,
             'review' => $this->review,
             'rating' => $this->rating,
+            'slotStatus' => $this->slotStatus,
+            
         ];
     }
 }
