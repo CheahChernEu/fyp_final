@@ -32,7 +32,7 @@ const libraries = ["places"];
 
 const mapContainerStyle = {
     height: "40vh",
-    width: "40vw",
+    width: "100%",
 };
 
 const options = {
@@ -61,7 +61,32 @@ const AddSlot = () => {
         price: "",
         review: null,
         rating: null,
+        slotStatus: "available",
     });
+
+    const uploadImage = async (e) => {
+        const file = e.target.files[0];
+        const base64 = await convertBase64(file);
+        setStateForm({
+            ...stateForm,
+            slotImage: base64,
+        });
+    };
+
+    const convertBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+          const fileReader = new FileReader();
+          fileReader.readAsDataURL(file);
+    
+          fileReader.onload = () => {
+            resolve(fileReader.result);
+          };
+    
+          fileReader.onerror = (error) => {
+            reject(error);
+          };
+        });
+    };
 
     useEffect(() => {
         //Http.get(`${api}?status=open`)
@@ -108,6 +133,7 @@ const AddSlot = () => {
                         price: "",
                         review: null,
                         rating: null,
+                        slotStatus: "available",
                     });
                     setError(false);
                 })
@@ -129,8 +155,9 @@ const AddSlot = () => {
                         lat: "",
                         lng: "",
                         price: "",
-                        review: "",
-                        rating: "",
+                        review: null,
+                        rating: null,
+                        slotStatus: "available",
                     });
                     setError(false);
                 })
@@ -330,8 +357,9 @@ const AddSlot = () => {
                                         name="slotImage"
                                         className="form-control mr-3"
                                         style={{ border: "none" }}
-                                        onChange={handleChange}
-                                        value={stateForm.slotImage}
+                                        onChange={(e) => {
+                                            uploadImage(e);
+                                        }}
                                         ref={register()}
                                     />
                                 </div>
@@ -414,7 +442,9 @@ const AddSlot = () => {
                                     <tr>
                                         <th>Slot ID</th>
                                         <th>Address</th>
+                                        <th>Price (in RM)</th>
                                         <th>Slot Image</th>
+                                        <th>Slot Status</th>
                                         <th>Delete</th>
                                         <th>Edit</th>
                                     </tr>
@@ -422,17 +452,25 @@ const AddSlot = () => {
                                     {dataState.length > 0 &&
                                         dataState.map((slot) => (
                                             <tr key={slot.id}>
-                                                <td>{slot.slotID}</td>
+                                                <td>
+                                                    {slot.slotID}
+                                                </td>
                                                 <td>
                                                     {slot.address
                                                         .slice(0, 30)
                                                         .concat("...")}
                                                 </td>
                                                 <td>
+                                                    {slot.price}
+                                                </td>
+                                                <td>
                                                     <img
                                                         src={slot.slotImage}
                                                         className="rounded mx-auto d-block"
                                                     ></img>
+                                                </td>
+                                                <td>
+                                                    {slot.slotStatus}
                                                 </td>
                                                 <td>
                                                     <span

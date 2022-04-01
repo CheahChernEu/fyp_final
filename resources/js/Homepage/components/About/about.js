@@ -7,7 +7,7 @@ const about = () => {
             <Navbar />
             <section className="hero-section">
                 <p>Welcome to </p>
-                <h1>Thapa Technical About Page</h1>
+                <h1>F_Truck About Page</h1>
             </section>
         </>
     );

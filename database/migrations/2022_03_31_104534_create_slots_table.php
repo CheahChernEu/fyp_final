@@ -26,6 +26,7 @@ class CreateSlotsTable extends Migration
             $table->float('price');
             $table->string('review');
             $table->integer('rating');
+            $table->integer('slotStatus');
         });
     }
 

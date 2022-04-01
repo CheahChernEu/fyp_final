@@ -81,6 +81,8 @@ class SlotController extends ApiController
                 'price' => request('price'),
                 'rating' => request('rating'),
                 'review' => request('review'),
+                'slotStatus' => request('slotStatus'),
+
             ]);
             return response()->json([
                 'status' => 201,
@@ -137,6 +139,7 @@ class SlotController extends ApiController
             'price' => 'double',
             'rating' => 'integer',
             'review' => 'string',
+            'slotStatus' => 'string',
         ]);
 
         if ($validator->fails()) {
@@ -169,6 +172,9 @@ class SlotController extends ApiController
                 }
                 if (request('review')) {
                     $slot->review = request('review');
+                }
+                if (request('slotStatus')) {
+                    $slot->slotStatus = request('slotStatus');
                 }
                 $slot->save();
                 return $this->responseResourceUpdated();

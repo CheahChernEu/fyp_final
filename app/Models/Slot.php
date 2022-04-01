@@ -27,6 +27,7 @@ class Slot extends Eloquent
         'price',
         'review',
         'rating',
+        'slotStatus',
     ];
 
     /**
