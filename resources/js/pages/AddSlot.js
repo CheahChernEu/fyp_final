@@ -215,7 +215,7 @@ const AddSlot = () => {
         Geocode.fromLatLng(e.latLng.lat(), e.latLng.lng()).then(
             (response) => {
                 const address = response.results[0].formatted_address;
-                console.log(address);
+
                 setStateForm({
                     ...stateForm,
                     address: address,
@@ -335,26 +335,7 @@ const AddSlot = () => {
                                         ref={register()}
                                     />
                                 </div>
-                                {/* <input
-                                    name="lat"
-                                    id="lat"
-                                    required
-                                    className="form-control mr-3"
-                                    onChange={handleChange}
-                                    value={marker.lat}
-                                    ref={register()}
-                                    readOnly
-                                />
-                                <input
-                                    name="lng"
-                                    id="lng"
-                                    required
-                                    className="form-control mr-3"
-                                    onChange={handleChange}
-                                    value={marker.lng}
-                                    ref={register()}
-                                    readOnly
-                                /> */}
+
                                 <div className="form-group">
                                     <label htmlFor="map">Location</label>
                                     <div></div>
@@ -411,7 +392,7 @@ const AddSlot = () => {
                                 <div></div>
                                 <button
                                     type="submit"
-                                    className="btn btn-block btn-outline-primary"
+                                    className="btn  btn-outline-primary"
                                 >
                                     Add
                                 </button>
@@ -437,6 +418,7 @@ const AddSlot = () => {
                                         <th>Delete</th>
                                         <th>Edit</th>
                                     </tr>
+
                                     {dataState.length > 0 &&
                                         dataState.map((slot) => (
                                             <tr key={slot.id}>

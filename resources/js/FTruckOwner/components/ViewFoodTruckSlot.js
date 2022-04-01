@@ -6,6 +6,8 @@ import Header from "../../FTruckOwner/components/MapComponents/Header/Header";
 import List from "../../FTruckOwner/components/MapComponents/List/List";
 import Map from "../../FTruckOwner/components/MapComponents/Map/Map";
 import OwnerHeader from "../../components/FoodTruckOwnerHeader";
+import axios from "axios";
+import Http from "../../Http";
 
 const ViewFoodTruckSlot = () => {
     const [type, setType] = useState("restaurants");
@@ -22,6 +24,11 @@ const ViewFoodTruckSlot = () => {
     const [childClicked, setChildClicked] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
+    const [dataState, setData] = useState([]);
+    const [error, setError] = useState(false);
+
+    const api = "/api/v1/slot";
+
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(
             ({ coords: { latitude, longitude } }) => {
@@ -31,31 +38,57 @@ const ViewFoodTruckSlot = () => {
     }, []);
 
     useEffect(() => {
-        const filtered = places.filter(
-            (place) => Number(place.rating) > rating
-        );
-
-        setFilteredPlaces(filtered);
-    }, [rating]);
-
-    useEffect(() => {
-        if (bounds) {
-            setIsLoading(true);
-
-            getWeatherData(coords.lat, coords.lng).then((data) =>
-                setWeatherData(data)
-            );
-
-            getPlacesData(type, bounds.sw, bounds.ne).then((data) => {
-                setPlaces(
-                    data.filter((place) => place.name && place.num_reviews > 0)
-                );
+        //Http.get(`${api}?status=open`)
+        Http.get(api)
+            .then((res) => {
+                // setIsLoading(true);
+                const { data } = res.data;
+                console.log(data);
+                setPlaces(data);
+                setError(false);
                 setFilteredPlaces([]);
                 setRating("");
                 setIsLoading(false);
+            })
+            .catch((err) => {
+                setError("Unable to fetch data.");
             });
-        }
-    }, [bounds, type]);
+    }, []);
+
+    // useEffect(() => {
+    //     axios.get("/api/getSlots").then((res) => {
+    //         if (res.data.status === 200) {
+    //             console.log(res.data.slots);
+    //         }
+    //     });
+    // }, []);
+
+    // useEffect(() => {
+    //     const filtered = places.filter(
+    //         (place) => Number(place.rating) > rating
+    //     );
+
+    //     setFilteredPlaces(filtered);
+    // }, [rating]);
+
+    // useEffect(() => {
+    //     if (bounds) {
+    //         setIsLoading(true);
+
+    //         // getWeatherData(coords.lat, coords.lng).then((data) =>
+    //         //     setWeatherData(data)
+    //         // );
+
+    //         getPlacesData(type, bounds.sw, bounds.ne).then((data) => {
+    //             setPlaces(
+    //                 data.filter((place) => place.name && place.num_reviews > 0)
+    //             );
+    //             setFilteredPlaces([]);
+    //             setRating("");
+    //             setIsLoading(false);
+    //         });
+    //     }
+    // }, [bounds, type]);
 
     const onLoad = (autoC) => setAutocomplete(autoC);
 
@@ -70,7 +103,7 @@ const ViewFoodTruckSlot = () => {
         <>
             <OwnerHeader />
             <CssBaseline />
-            {/* <Header onPlaceChanged={onPlaceChanged} onLoad={onLoad} /> */}
+            {/* <Header onPlaceChanged={onPlaceChanged} /> */}
             <Grid container spacing={3} style={{ width: "100%" }}>
                 <Grid item xs={12} md={4}>
                     <List
@@ -98,7 +131,7 @@ const ViewFoodTruckSlot = () => {
                         setBounds={setBounds}
                         setCoords={setCoords}
                         coords={coords}
-                        places={filteredPlaces.length ? filteredPlaces : places}
+                        places={places}
                         weatherData={weatherData}
                         onPlaceChanged={onPlaceChanged}
                         onLoad={onLoad}
