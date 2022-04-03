@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, createRef } from "react";
 import {
     Box,
     Typography,
@@ -8,14 +8,16 @@ import {
     CardContent,
     CardActions,
     Chip,
+    Grid,
 } from "@material-ui/core";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import PhoneIcon from "@material-ui/icons/Phone";
 import Rating from "@material-ui/lab/Rating";
+import Checkout from "../../Checkout/Checkout";
 
 import useStyles from "./styles.js";
 
-const PlaceDetails = ({ place, selected, refProp }) => {
+const PlaceDetails = ({ place, selected, refProp, index, places }) => {
     if (selected)
         refProp?.current?.scrollIntoView({
             behavior: "smooth",
@@ -29,10 +31,10 @@ const PlaceDetails = ({ place, selected, refProp }) => {
                 style={{ height: 350 }}
                 image={
                     place.slotImage
-                        ? "https://1.bp.blogspot.com/-MbntNDjCYls/XTK0TFH0CkI/AAAAAAAAaLQ/fh59xEPaHAQpQhOE9N_maCmWipgtduKswCLcBGAs/s1600/IJM-allianz-duo-highway-2019-selinawing-02.png"
-                        : place.slotImage
+                        ? place.slotImage
+                        : "https://1.bp.blogspot.com/-MbntNDjCYls/XTK0TFH0CkI/AAAAAAAAaLQ/fh59xEPaHAQpQhOE9N_maCmWipgtduKswCLcBGAs/s1600/IJM-allianz-duo-highway-2019-selinawing-02.png"
                 }
-                title={place.name}
+                // title={place.name}
             />
             <CardContent>
                 {/* <Typography gutterBottom variant="h5">
@@ -42,14 +44,14 @@ const PlaceDetails = ({ place, selected, refProp }) => {
                     {place.rating !== null && (
                         <Rating
                             name="read-only"
-                            value={Number(place.rating)}
+                            value={place.rating}
                             readOnly
                         />
                     )}
-                    {place.num_reviews !== null && (
+                    {place.review !== null && (
                         <Typography component="legend">
                             {place.review} review
-                            {/* {place.num_reviews > 1 && "s"} */}
+                            {Number(place.review) > 1 && "s"}
                         </Typography>
                     )}
                 </Box>
@@ -86,6 +88,13 @@ const PlaceDetails = ({ place, selected, refProp }) => {
                         className={classes.chip}
                     />
                 ))} */}
+                {place.slotStatus && (
+                    <Chip
+                        size="small"
+                        label={place.slotStatus}
+                        className={classes.chip}
+                    />
+                )}
                 {place.address && (
                     <Typography
                         gutterBottom
@@ -108,20 +117,15 @@ const PlaceDetails = ({ place, selected, refProp }) => {
                 )} */}
             </CardContent>
             <CardActions>
-                <Button
-                // size="small"
-                // color="primary"
-                // onClick={() => window.open(place.web_url, "_blank")}
-                >
-                    Reserve a slot here!
-                </Button>
+                {/* <h1>{place}</h1> */}
                 {/* <Button
-                    size="small"
+                    variant="outlined"
                     color="primary"
-                    onClick={() => window.open(place.website, "_blank")}
+                    onClick={() => handleClickOpen()}
                 >
-                    Website
+                    Slot Reservation!
                 </Button> */}
+                <Checkout places={places} index={index} />
             </CardActions>
         </Card>
     );

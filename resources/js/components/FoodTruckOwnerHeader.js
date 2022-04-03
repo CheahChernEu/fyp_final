@@ -34,6 +34,11 @@ const FoodTruckOwnerHeader = (props) => {
                 <div className="navigation d-flex justify-content-end">
                     <Nav>
                         <NavItem>
+                            <NavLink tag={Link} to="/owner">
+                                Home
+                            </NavLink>
+                        </NavItem>
+                        <NavItem>
                             <NavLink tag={Link} to="/viewFoodTruckSlot">
                                 Booking/Reservation
                             </NavLink>

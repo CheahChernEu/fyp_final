@@ -14,7 +14,8 @@ import Add_Staff from "../pages/AddStaff";
 import OwnerDashboard from "../FTruckOwner/components/OwnerDashboard";
 import ReservationStatus from "../FTruckOwner/components/Reservation";
 import ViewFoodTruckSlot from "../FTruckOwner/components/ViewFoodTruckSlot";
-
+import Checkout from "../FTruckOwner/components/Checkout/Checkout";
+import paymentPage from "../FTruckOwner/components/PaymentPage/PaymentPage";
 const routes = [
     {
         path: "/",
@@ -64,6 +65,20 @@ const routes = [
         auth: true,
         component: AddSlot,
     },
+    {
+        path: "/reservationDetails",
+        exact: true,
+        auth: true,
+        component: Checkout,
+    },
+
+    {
+        path: "/payment",
+        exact: true,
+        auth: true,
+        component: paymentPage,
+    },
+
     {
         path: "/view-reservation",
         exact: true,

@@ -49,27 +49,6 @@ const Map = ({
         mapRef.current.setZoom(14);
     }, []);
 
-    function Locate({ panTo }) {
-        return (
-            <button
-                className="locate"
-                onClick={() => {
-                    navigator.geolocation.getCurrentPosition(
-                        (position) => {
-                            panTo({
-                                lat: position.coords.latitude,
-                                lng: position.coords.longitude,
-                            });
-                        },
-                        () => null
-                    );
-                }}
-            >
-                <FaLocationArrow /> Use Current Location
-            </button>
-        );
-    }
-
     function Search({ panTo }) {
         const {
             ready,
@@ -144,7 +123,6 @@ const Map = ({
                     />
                 </div>
             </Autocomplete> */}
-            <Locate panTo={panTo} />
             <Search panTo={panTo} />
             <GoogleMapReact
                 bootstrapURLKeys={{
@@ -196,8 +174,8 @@ const Map = ({
                                         className={classes.pointer}
                                         src={
                                             place.slotImage
-                                                ? "https://1.bp.blogspot.com/-MbntNDjCYls/XTK0TFH0CkI/AAAAAAAAaLQ/fh59xEPaHAQpQhOE9N_maCmWipgtduKswCLcBGAs/s1600/IJM-allianz-duo-highway-2019-selinawing-02.png"
-                                                : place.slotImage
+                                                ? place.slotImage
+                                                : "https://1.bp.blogspot.com/-MbntNDjCYls/XTK0TFH0CkI/AAAAAAAAaLQ/fh59xEPaHAQpQhOE9N_maCmWipgtduKswCLcBGAs/s1600/IJM-allianz-duo-highway-2019-selinawing-02.png"
                                         }
                                     />
                                     <Rating

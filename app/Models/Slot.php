@@ -8,19 +8,19 @@ class Slot extends Eloquent
 {
     protected $connection = 'mongodb';
     protected $collection = 'slots';
-    
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'id', 
-        'slotID', 
-        'address', 
-        'slotImage', 
-        'created_at', 
-        'updated_at', 
+        'id',
+        'slotID',
+        'address',
+        'slotImage',
+        'created_at',
+        'updated_at',
         'user_id',
         'lat',
         'lng',
