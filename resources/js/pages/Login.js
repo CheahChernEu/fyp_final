@@ -5,7 +5,7 @@ import { Link, Redirect } from "react-router-dom";
 import classNames from "classnames";
 import AuthService from "../services";
 import { useForm } from "react-hook-form";
-import Header from "./../components/Header";
+import AdminHeader from "./../components/AdminHeader";
 
 const Login = (props) => {
     const { register, handleSubmit, watch, errors } = useForm();
@@ -105,7 +105,7 @@ const Login = (props) => {
             {isAuthenticated && typeof res.type !== "undefined" && (
                 <Redirect to={from} />
             )}
-            <Header />
+            <AdminHeader />
             <div className="d-flex flex-column flex-row align-content-center py-5">
                 <div className="container">
                     <div className="row">
@@ -214,7 +214,7 @@ const Login = (props) => {
                                                     }
                                                 )}
                                                 name="licenseNo"
-                                                placeholder="Enter licenseNo/staffNo"
+                                                placeholder="Enter licenseNo"
                                                 required
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Route } from 'react-router-dom';
+import { Route } from 'react-router';
 import { connect } from 'react-redux';
 import Base from '../Base';
 
