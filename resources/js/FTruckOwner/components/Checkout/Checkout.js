@@ -252,9 +252,9 @@ const Checkout = ({ success, places, index }) => {
     );
 };
 
-const stripePromise = loadStripe(
-    "pk_test_51KjCibLroMhKOKfoup1NmOhShBZdK3rPR3cVU2AwjAjmoogcqN0MAvXfhUk4gJJy4vjz8iEN4F331tCI8v1DeMQA00t418FV4i"
-);
+// const stripePromise = loadStripe(
+//     "pk_test_51KjCibLroMhKOKfoup1NmOhShBZdK3rPR3cVU2AwjAjmoogcqN0MAvXfhUk4gJJy4vjz8iEN4F331tCI8v1DeMQA00t418FV4i"
+// );
 
 const Index = ({ places, index }) => {
     const [status, setStatus] = React.useState("ready");
@@ -264,15 +264,15 @@ const Index = ({ places, index }) => {
     }
 
     return (
-        <Elements stripe={stripePromise}>
-            <Checkout
-                success={() => {
-                    setStatus("success");
-                }}
-                places={places}
-                index={index}
-            />
-        </Elements>
+        // <Elements stripe={stripePromise}>
+        <Checkout
+            success={() => {
+                setStatus("success");
+            }}
+            places={places}
+            index={index}
+        />
+        // </Elements>
     );
 };
 
