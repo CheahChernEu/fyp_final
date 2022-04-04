@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import * as ReactDOM from "react-dom";
+import "../Checkout/index.css";
 import { DateRangePicker } from "rsuite";
 import { DateRangePickerComponent } from "@syncfusion/ej2-react-calendars";
+// import { DateRangePickerComponent } from "@syncfusion/ej2-react-calendars";
 
-import styled from "styled-components";
-
-import styles from "./checkout.module.css";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -15,13 +14,8 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
 import DatePicker from "react-multi-date-picker";
-import StripeCheckout from "react-stripe-checkout";
 
-import { loadStripe } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
-import axios from "axios";
-
-const Checkout = ({ success, places, index }) => {
+const Checkout = ({ places, index }) => {
     const [open, setOpen] = React.useState(false);
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down("xl"));
@@ -43,46 +37,15 @@ const Checkout = ({ success, places, index }) => {
         return days;
     };
 
+    // const difference_In_Days = (startDate, endDate) => {
+    //     const Difference_In_Time = startDate.getTime() - endDate.getTime();
+
+    //     return Difference_In_Time / (1000 * 3600 * 24);
+    // };
+
     const total_rents = (price, days) => {
         const totalCost = price * days;
-
         return totalCost;
-    };
-
-    const handleSubmit = async (event) => {
-        // event.preventDefault();
-
-        const { error, paymentMethod } = await stripe.createPaymentMethod({
-            type: "card",
-            card: elements.getElement(CardElement),
-        });
-        console.log("Hey");
-        console.log(error);
-        console.log(paymentMethod);
-
-        // if (error) {
-        //     const { id } = paymentMethod;
-
-        //     try {
-        //         await axios
-        //             .post("/sendPayment", {
-        //                 id,
-        //                 price: slotObj.price,
-        //                 slotID: slotObj.slotID,
-        //                 address: slotObj.address,
-        //                 slotStatus: slotObj.slotStatus,
-        //                 paymentStatus: success,
-        //             })
-        //             .then(function (response) {
-        //                 console.log(response);
-        //             });
-        //         console.log("testing");
-
-        //         success();
-        //     } catch (error) {
-        //         console.log(error);
-        //     }
-        // }
     };
 
     const [startDate, setStartDate] = useState(new Date());
@@ -132,28 +95,25 @@ const Checkout = ({ success, places, index }) => {
                 aria-labelledby="responsive-dialog-title"
             >
                 <DialogTitle id="responsive-dialog-title">
-                    <h3 className={styles.h3}>
-                        {"Reserve slot for slot ID: "} {slotObj.slotID}
-                    </h3>
+                    {"Reserve slot for "} {slotObj.slotID}
                 </DialogTitle>
 
                 <DialogContent>
                     <DialogContentText>
-                        <section className={styles.section}>
-                            <div className={styles.product}>
+                        <section>
+                            <div className="product">
                                 <img
-                                    className={styles.img}
                                     src={slotObj.slotImage}
                                     alt="The cover of Stubborn Attachments"
                                 />
 
-                                <div className={styles.description}>
-                                    <h3 className={styles.h3}>
+                                <div className="description">
+                                    <h3>
                                         Please select the duration for the slot
                                         rental below:
                                     </h3>
 
-                                    <h3 className={styles.h3}>
+                                    <h3>
                                         Start Date:{" "}
                                         <DatePicker
                                             placeholderText="Select Start Date"
@@ -164,7 +124,7 @@ const Checkout = ({ success, places, index }) => {
                                         />
                                     </h3>
 
-                                    <h3 className={styles.h3}>
+                                    <h3>
                                         End Date:{" "}
                                         <DatePicker
                                             placeholderText="Select End Date"
@@ -175,23 +135,23 @@ const Checkout = ({ success, places, index }) => {
                                         />
                                     </h3>
 
-                                    <h3 className={styles.h3}>
+                                    <h3>
                                         {"Price: "}
                                         {slotObj.price} {" per day"}
                                     </h3>
-                                    <h3 className={styles.h3}>
+                                    <h3>
                                         {"Address: "}
                                         {slotObj.address}
                                     </h3>
-                                    <h3 className={styles.h3}>
+                                    <h3>
                                         {"Status: "} {slotObj.slotStatus}
                                     </h3>
-                                    <h3 className={styles.h3}>
+                                    <h3>
                                         {"Days: "}{" "}
                                         {difference_In_Days(startDate, endDate)}
                                     </h3>
-                                    <h3 className={styles.h3}>
-                                        {"Total Rents: RM "}{" "}
+                                    <h3>
+                                        {"Total Rents: "}{" "}
                                         {total_rents(
                                             slotObj.price,
                                             difference_In_Days(

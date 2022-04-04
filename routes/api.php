@@ -35,8 +35,6 @@ Route::group([
     Route::apiResource('comments', 'CommentsController');
 });
 
-Route::post('sendPayment','CheckoutController@store');
-
 // Not Found
 Route::fallback(function(){
     return response()->json(['message' => 'Resource not found.'], 404);
