@@ -52,7 +52,6 @@
         "react-redux": "^7.2.2",
         "react-router": "^5.2.1",
         "react-router-dom": "^5.2.0",
-        "react-stripe-checkout": "^2.6.3",
         "reactstrap": "^8.8.1",
         "redux": "^4.0.5",
         "redux-persist": "^6.0.0",
@@ -60,7 +59,6 @@
         "ree-validate": "^3.3.0",
         "rsuite": "^5.7.1",
         "rsuite-daterangepicker": "^3.0.5",
-        "styled-components": "^5.3.5",
         "sweetalert": "^2.1.2",
         "use-places-autocomplete": "^2.0.0"
     }

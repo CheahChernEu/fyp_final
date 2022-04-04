@@ -5,33 +5,31 @@ import { connect } from 'react-redux';
 import Base from '../Base';
 
 const SplitRoute = ({
-    component: Component,
-    fallback: Fallback,
-    isAuthenticated,
-    ...rest
+  component: Component,
+  fallback: Fallback,
+  isAuthenticated,
+  ...rest
 }) => (
-    <Route
-        {...rest}
-        render={(props) =>
-            isAuthenticated ? (
-                <Base>
-                    <Component {...props} />
-                </Base>
-            ) : (
-                <Base>
-                    <Fallback {...props} />
-                </Base>
-            )
-        }
-    />
+  <Route
+    {...rest}
+    render={(props) => (isAuthenticated ? (
+      <Base>
+        <Component {...props} />
+      </Base>
+    ) : (
+      <Base>
+        <Fallback {...props} />
+      </Base>
+    ))}
+  />
 );
 
 SplitRoute.propTypes = {
-    isAuthenticated: PropTypes.bool.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-    isAuthenticated: state.Auth.isAuthenticated,
+  isAuthenticated: state.Auth.isAuthenticated,
 });
 
 export default connect(mapStateToProps)(SplitRoute);
