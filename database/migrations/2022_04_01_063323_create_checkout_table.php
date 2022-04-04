@@ -19,14 +19,12 @@ class CreateCheckoutTable extends Migration
             $table->increments('id');
             $table->increments('paymentID');
             $table->integer('user_id');
-            $table->integer('cardNum');
-            $table->string('cardName');
-            $table->integer('cardCVC');
-            $table->string('country');
             $table->string('slotID');
             $table->string('address');
             $table->float('price');
             $table->string('slotStatus');
+            $table->string('paymentMethod');
+            $table->string('paymentStatus');
         });
     }
 

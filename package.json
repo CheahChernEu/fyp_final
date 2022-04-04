@@ -51,6 +51,7 @@
         "react-redux": "^7.2.2",
         "react-router": "^5.2.1",
         "react-router-dom": "^5.2.0",
+        "react-stripe-checkout": "^2.6.3",
         "reactstrap": "^8.8.1",
         "redux": "^4.0.5",
         "redux-persist": "^6.0.0",
