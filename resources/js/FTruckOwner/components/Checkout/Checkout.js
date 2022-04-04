@@ -90,8 +90,30 @@ const Checkout = ({ success, places, index }) => {
     const [totalRents, setTotalRents] = useState(0);
     const [diffDays, setDiffDays] = useState(0);
 
+    const session = JSON.parse(window.localStorage.getItem("user"));
+    const { userSession } = session;
+
     const onToken = (token) => {
+        // if(!isNaN(token.created)){
+        //         await axios
+        //     .post("/sendPayment", {
+        //         id,
+        //         price: slotObj.price,
+        //         slotID: slotObj.slotID,
+        //         address: slotObj.address,
+        //         slotStatus: slotObj.slotStatus,
+        //         paymentStatus: success,
+        //     })
+        //     .then(function (response) {
+        //         console.log(response);
+        //     });
+
+        // } else {
+
+        // }
+
         console.log(token);
+        console.log(token.email);
     };
     return (
         <div>
@@ -185,16 +207,40 @@ const Checkout = ({ success, places, index }) => {
                 </DialogContent>
 
                 <DialogActions>
-                    <StripeCheckout
-                        token={onToken}
-                        stripeKey="pk_test_51KjCibLroMhKOKfoup1NmOhShBZdK3rPR3cVU2AwjAjmoogcqN0MAvXfhUk4gJJy4vjz8iEN4F331tCI8v1DeMQA00t418FV4i"
-                        name={slotObj.slotID}
-                        currency="MYR"
-                        amount={totalRents * 100}
-                    />
+                    {total_rents(
+                        slotObj.price,
+                        difference_In_Days(startDate, endDate)
+                    ) *
+                        100 >
+                        0 && (
+                        <StripeCheckout
+                            token={onToken}
+                            stripeKey="pk_test_51KjCibLroMhKOKfoup1NmOhShBZdK3rPR3cVU2AwjAjmoogcqN0MAvXfhUk4gJJy4vjz8iEN4F331tCI8v1DeMQA00t418FV4i"
+                            name={
+                                "Reserve Food Truck Slot ID " + slotObj.slotID
+                            }
+                            currency="MYR"
+                            amount={
+                                total_rents(
+                                    slotObj.price,
+                                    difference_In_Days(startDate, endDate)
+                                ) * 100
+                            }
+                            label={
+                                "Pay RM " +
+                                total_rents(
+                                    slotObj.price,
+                                    difference_In_Days(startDate, endDate)
+                                ) *
+                                    100
+                            }
+                        />
+                    )}
+
                     <Button
                         className={styles.button}
                         onClick={handleClose}
+                        variant="contained"
                         color="primary"
                         autoFocus
                     >
@@ -231,59 +277,3 @@ const Index = ({ places, index }) => {
 };
 
 export default Index;
-
-// import React, { useState } from "react";
-// import {
-//     useStripe,
-//     useElements,
-//     PaymentElement,
-// } from "@stripe/react-stripe-js";
-
-// const CheckoutForm = () => {
-//     const stripe = useStripe();
-//     const elements = useElements();
-
-//     const [errorMessage, setErrorMessage] = useState(null);
-
-//     const handleSubmit = async (event) => {
-//         // We don't want to let default form submission happen here,
-//         // which would refresh the page.
-//         event.preventDefault();
-
-//         if (!stripe || !elements) {
-//             // Stripe.js has not yet loaded.
-//             // Make sure to disable form submission until Stripe.js has loaded.
-//             return;
-//         }
-
-//         const { error } = await stripe.confirmPayment({
-//             //`Elements` instance that was used to create the Payment Element
-//             elements,
-//             confirmParams: {
-//                 return_url: "https://example.com/order/123/complete",
-//             },
-//         });
-
-//         if (error) {
-//             // This point will only be reached if there is an immediate error when
-//             // confirming the payment. Show error to your customer (for example, payment
-//             // details incomplete)
-//             setErrorMessage(error.message);
-//         } else {
-//             // Your customer will be redirected to your `return_url`. For some payment
-//             // methods like iDEAL, your customer will be redirected to an intermediate
-//             // site first to authorize the payment, then redirected to the `return_url`.
-//         }
-//     };
-
-//     return (
-//         <form onSubmit={handleSubmit}>
-//             <PaymentElement />
-//             <button disabled={!stripe}>Submit</button>
-//             {/* Show error message to your customers */}
-//             {errorMessage && <div>{errorMessage}</div>}
-//         </form>
-//     );
-// };
-
-// export default CheckoutForm;
