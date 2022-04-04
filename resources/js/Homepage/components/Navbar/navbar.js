@@ -43,8 +43,11 @@ const Navbar = () => {
                                 <button
                                     type="button"
                                     className="btn btn-primary"
+                                    style={{
+                                        width: "150px",
+                                    }}
                                 >
-                                    Login
+                                    Join Us Now
                                 </button>
                             </a>
                         </li>

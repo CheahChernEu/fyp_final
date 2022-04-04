@@ -278,7 +278,7 @@ const AddSlot = () => {
                     <div className="col">
                         <div className="add-todos mb-5">
                             <h1 className="text-center mb-4">
-                                Add/ Update Food Truck Slot
+                                Add/ Manage Food Truck Slot
                             </h1>
                             <form
                                 method="post"
@@ -332,8 +332,8 @@ const AddSlot = () => {
                                         name="price"
                                         id="price"
                                         required
-                                        maxLength={100}
-                                        minLength={3}
+                                        maxLength={4}
+                                        minLength={2}
                                         className="form-control mr-3"
                                         placeholder="e.g. 100"
                                         onChange={handleChange}
@@ -361,14 +361,20 @@ const AddSlot = () => {
                                             uploadImage(e);
                                         }}
                                         ref={register()}
+                                        required
                                     />
+                                    {errors.price && (
+                                        <span className="invalid-feedback">
+                                            This field is required.
+                                        </span>
+                                    )}
                                 </div>
 
                                 <div className="form-group">
                                     <label htmlFor="map">Location</label>
                                     <div></div>
-                                    <Locate panTo={panTo} />
                                     <Search panTo={panTo} />
+                                    <Locate panTo={panTo} />
 
                                     <GoogleMap
                                         id="map"
@@ -421,6 +427,16 @@ const AddSlot = () => {
                                 <button
                                     type="submit"
                                     className="btn  btn-outline-primary"
+                                    style={{
+                                        height: "36px",
+                                        background: "#556cd6",
+                                        color: "white",
+                                        width: "100%",
+                                        fontsize: "14px",
+                                        border: "0",
+                                        fontweight: "500",
+                                        cursor: "pointer",
+                                    }}
                                 >
                                     Add
                                 </button>
@@ -446,7 +462,6 @@ const AddSlot = () => {
                                         <th>Slot Image</th>
                                         <th>Slot Status</th>
                                         <th>Delete</th>
-                                        <th>Edit</th>
                                     </tr>
 
                                     {dataState.length > 0 &&
@@ -489,26 +504,6 @@ const AddSlot = () => {
                                                         Delete
                                                     </span>
                                                 </td>
-                                                <td>
-                                                    <span
-                                                        type="button"
-                                                        className="badge badge-dark"
-                                                        onClick={
-                                                            slot.user_id === id
-                                                                ? () =>
-                                                                      editSlot(
-                                                                          slot
-                                                                      )
-                                                                : () =>
-                                                                      console.log(
-                                                                          "No access to the slot created by other admin"
-                                                                      )
-                                                        }
-                                                        data-key={slot.id}
-                                                    >
-                                                        Edit
-                                                    </span>
-                                                </td>
                                             </tr>
                                         ))}
                                 </tbody>
@@ -535,6 +530,18 @@ function Locate({ panTo }) {
                     },
                     () => null
                 );
+            }}
+            style={{
+                height: "36px",
+                background: "#556cd6",
+                color: "white",
+                width: "100%",
+                fontsize: "14px",
+                border: "0",
+                borderRadius: "2px",
+                fontweight: "500",
+                cursor: "pointer",
+                marginBottom: "5px"
             }}
         >
             <FaLocationArrow /> Use Current Location
@@ -583,6 +590,15 @@ function Search({ panTo }) {
                     onChange={handleInput}
                     disabled={!ready}
                     placeholder="Search your location"
+                    style={{
+                        height: "36px",
+                        width: "100%",
+                        borderRadius: "2px",
+                        border: "1px solid #DCE0E6",
+                        padding: "0px 8px",
+                        marginBottom: "5px",
+
+                    }}
                 />
                 <ComboboxPopover>
                     <ComboboxList>
