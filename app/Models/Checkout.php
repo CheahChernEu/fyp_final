@@ -14,10 +14,6 @@ class Checkout extends Eloquent
 
     protected $fillable = [
         'paymentID',
-        'cardNum',
-        'cardCVC',
-        'cardName',
-        'country',
         'user_id',
         'slotID',
         'address',
@@ -25,6 +21,8 @@ class Checkout extends Eloquent
         'updated_at',
         'price',
         'slotStatus',
+        'paymentStatus',
+        'paymentMethod'
     ];
 
 }
