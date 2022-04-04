@@ -18,6 +18,7 @@ class CheckoutController extends ApiController
      */
     public function store(Request $request)
     {
+        \Log::debug('Tanininini', $request->all());
         // Get user from $request token.
         if (! $user = auth()->setRequest($request)->user()) {
             return $this->responseUnauthorized();
@@ -26,11 +27,6 @@ class CheckoutController extends ApiController
 
         // Validate all the required parameters have been sent.
         $validator = Validator::make($request->all(), [
-            'paymentID' => 'required',
-            'cardNum' => 'required',
-            'cardCVC' => 'required',
-            'cardName' => 'required',
-            'country' => 'required',
             'slotID' => 'required',
             'price' => 'required',
             'user_id' => 'required',
@@ -44,14 +40,12 @@ class CheckoutController extends ApiController
         try {
             $checkout = Checkout::create([
                 'user_id' => $user->id,
-                'cardNum' => request('cardNum'),
-                'cardCVC' => request('cardCVC'),
-                'cardName' => request('cardName'),
-                'country' => request('country'),
                 'slotID' => request('slotID'),
                 'address' => request('address'),
-                'price' => request('review'),
+                'price' => request('price'),
                 'slotStatus' => request('slotStatus'),
+                'paymentMethod' => request('id'),
+                'paymentStatus'  => request('paymentStatus'),
             ]);
             return response()->json([
                 'status' => 201,
