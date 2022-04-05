@@ -11,6 +11,7 @@ import { useTheme } from "@material-ui/core/styles";
 import DatePicker from "react-multi-date-picker";
 import StripeCheckout from "react-stripe-checkout";
 import Http from "../../../Http";
+import { useHistory } from "react-router-dom";
 
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
@@ -21,6 +22,10 @@ const Checkout = ({ success, places, index }) => {
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down("xl"));
     const [slotObj, setSlotObj] = React.useState({});
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
+
+    let history = useHistory();
 
     const handleClickOpen = (index, places) => {
         setOpen(true);
@@ -33,14 +38,13 @@ const Checkout = ({ success, places, index }) => {
     };
 
     const difference_In_Days = (startDate, endDate) => {
-        const diffInMs = Math.abs(startDate - endDate);
-        const days = Math.round(diffInMs / (1000 * 60 * 60 * 24));
-        if (days > 0) {
-            days + 1;
+        if (endDate >= startDate) {
+            const diffInMs = Math.abs(startDate - endDate);
+            const days = Math.round(diffInMs / (1000 * 60 * 60 * 24) + 1);
+            return days;
         } else {
-            days;
+            return 0;
         }
-        return days;
     };
 
     const total_rents = (price, days) => {
@@ -48,46 +52,6 @@ const Checkout = ({ success, places, index }) => {
 
         return totalCost;
     };
-
-    const handleSubmit = async (event) => {
-        // event.preventDefault();
-
-        const { error, paymentMethod } = await stripe.createPaymentMethod({
-            type: "card",
-            card: elements.getElement(CardElement),
-        });
-        console.log("Hey");
-        console.log(error);
-        console.log(paymentMethod);
-
-        // if (error) {
-        //     const { id } = paymentMethod;
-
-        //     try {
-        //         await axios
-        //             .post("/sendPayment", {
-        //                 id,
-        //                 price: slotObj.price,
-        //                 slotID: slotObj.slotID,
-        //                 address: slotObj.address,
-        //                 slotStatus: slotObj.slotStatus,
-        //                 paymentStatus: success,
-        //             })
-        //             .then(function (response) {
-        //                 console.log(response);
-        //             });
-        //         console.log("testing");
-
-        //         success();
-        //     } catch (error) {
-        //         console.log(error);
-        //     }
-        // }
-    };
-
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(new Date());
-    const [diffDays, setDiffDays] = useState(0);
 
     const session = JSON.parse(window.localStorage.getItem("user"));
     const api = "/api/v1/checkout";
@@ -100,7 +64,7 @@ const Checkout = ({ success, places, index }) => {
             slotID: slotObj.slotID,
             address: slotObj.address,
             reservationStatus: "Pending",
-            paymentStatus: "Successfull",
+            paymentStatus: "Successful",
             paymentMethod: token.type,
         };
 
@@ -113,6 +77,7 @@ const Checkout = ({ success, places, index }) => {
                     Http.patch(`${slotApi}/${data.checkoutObj.slotID}`, slot)
                         .then((response) => {
                             console.log(response);
+                            history.push("/success");
                         })
                         .catch(() => {
                             console.log("failed to update");
@@ -120,6 +85,7 @@ const Checkout = ({ success, places, index }) => {
                 })
                 .catch(() => {
                     console.log("failed to save data into database");
+                    history.push("/cancel");
                 });
         }
     };
@@ -129,6 +95,9 @@ const Checkout = ({ success, places, index }) => {
                 variant="outlined"
                 color="primary"
                 onClick={() => handleClickOpen(index, places)}
+                disabled={
+                    places[index].slotStatus === "Available" ? false : true
+                }
             >
                 Slot Reservation Here!
             </Button>

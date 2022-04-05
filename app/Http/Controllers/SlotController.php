@@ -107,7 +107,7 @@ class SlotController extends ApiController
             return $this->responseUnauthorized();
         }
 
-        $slot = Slot::where('_id', $id)->firstOrFail();
+        $slot = Slot::where('user_id', $id)->firstOrFail();
         // User can only acccess their own data.
         if ($slot['user_id'] === $user->id) {
             return $this->responseUnauthorized();

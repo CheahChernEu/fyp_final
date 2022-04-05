@@ -6,7 +6,7 @@ export default makeStyles((theme) => ({
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        width: "100px",
+        width: "180px",
     },
     mapContainer: {
         height: "85vh",

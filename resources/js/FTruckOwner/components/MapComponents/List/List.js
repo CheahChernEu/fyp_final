@@ -36,14 +36,16 @@ const List = ({
 
     return (
         <div className={classes.container}>
-            <Typography variant="h4">Food Truck Slot Around You</Typography>
+            <Typography variant="h4" style={{ margin: "45px" }}>
+                Food Truck Slot Around You
+            </Typography>
             {isLoading ? (
                 <div className={classes.loading}>
                     <CircularProgress size="5rem" />
                 </div>
             ) : (
                 <>
-                    <FormControl className={classes.formControl}>
+                    {/* <FormControl className={classes.formControl}>
                         <InputLabel id="type">Type</InputLabel>
                         <Select
                             id="type"
@@ -67,7 +69,7 @@ const List = ({
                             <MenuItem value="4">Above 4.0</MenuItem>
                             <MenuItem value="4.5">Above 4.5</MenuItem>
                         </Select>
-                    </FormControl>
+                    </FormControl> */}
                     <Grid container spacing={3} className={classes.list}>
                         {places?.map((place, i) => (
                             <Grid ref={elRefs[i]} key={i} item xs={12}>

@@ -3,7 +3,6 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import ForgotPassword from "../pages/ForgotPassword";
 import ResetPassword from "../pages/ResetPassword";
-import Archive from "../pages/Archive";
 import NoMatch from "../pages/NoMatch";
 import AdminDashboard from "../pages/AdminDashboard";
 import AddSlot from "../pages/AddSlot";
@@ -15,6 +14,9 @@ import OwnerDashboard from "../FTruckOwner/components/OwnerDashboard";
 import ReservationStatus from "../FTruckOwner/components/Reservation";
 import ViewFoodTruckSlot from "../FTruckOwner/components/ViewFoodTruckSlot";
 import Checkout from "../FTruckOwner/components/Checkout/Checkout";
+import Success from "../FTruckOwner/components/Checkout/Success";
+import Cancel from "../FTruckOwner/components/Checkout/Cancel";
+
 const routes = [
     {
         path: "/",
@@ -78,6 +80,19 @@ const routes = [
         component: ViewReservation,
     },
     {
+        path: "/success",
+        exact: true,
+        auth: true,
+        component: Success,
+    },
+    {
+        path: "/cancel",
+        exact: true,
+        auth: true,
+        component: Cancel,
+    },
+
+    {
         path: "/login",
         exact: true,
         auth: false,
@@ -100,12 +115,6 @@ const routes = [
         exact: true,
         auth: false,
         component: ResetPassword,
-    },
-    {
-        path: "/archive",
-        exact: true,
-        auth: true,
-        component: Archive,
     },
     {
         path: "",

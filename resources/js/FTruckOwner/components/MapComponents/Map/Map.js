@@ -4,10 +4,12 @@ import { Paper, Typography, useMediaQuery, InputBase } from "@material-ui/core";
 import LocationOnOutlinedIcon from "@material-ui/icons/LocationOnOutlined";
 import Rating from "@material-ui/lab/Rating";
 import SearchIcon from "@material-ui/icons/Search";
-import { Autocomplete, LoadScript } from "@react-google-maps/api";
+import {
+    Autocomplete,
+    LoadScript,
+    useLoadScript,
+} from "@react-google-maps/api";
 
-import swal from "sweetalert";
-import Geocode from "react-geocode";
 import usePlacesAutocomplete, {
     getGeocode,
     getLatLng,
@@ -19,8 +21,7 @@ import {
     ComboboxList,
     ComboboxOption,
 } from "@reach/combobox";
-import { formatRelative } from "date-fns";
-import { FaLocationArrow } from "react-icons/fa";
+
 import "@reach/combobox/styles.css";
 
 import mapStyles from "../mapStyles";
@@ -32,7 +33,7 @@ const Map = ({
     setCoords,
     setBounds,
     setChildClicked,
-    weatherData,
+
     onPlaceChanged,
     onLoad,
 }) => {
@@ -44,72 +45,17 @@ const Map = ({
         mapRef.current = map;
     }, []);
 
-    const panTo = React.useCallback(({ lat, lng }) => {
-        mapRef.current.panTo({ lat, lng });
-        mapRef.current.setZoom(14);
-    }, []);
-
-    function Search({ panTo }) {
-        const {
-            ready,
-            value,
-            suggestions: { status, data },
-            setValue,
-            clearSuggestions,
-        } = usePlacesAutocomplete({
-            requestOptions: {
-                location: { lat: () => 43.6532, lng: () => -79.3832 },
-                radius: 100 * 500,
-            },
-        });
-
-        // https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service#AutocompletionRequest
-
-        const handleInput = (e) => {
-            setValue(e.target.value);
-        };
-
-        const handleSelect = async (address) => {
-            setValue(address, false);
-            clearSuggestions();
-
-            try {
-                const results = await getGeocode({ address });
-                const { lat, lng } = await getLatLng(results[0]);
-                panTo({ lat, lng });
-            } catch (error) {
-                console.log("Error: ", error);
-            }
-        };
-
-        return (
-            <div className="search">
-                <Combobox onSelect={handleSelect}>
-                    <ComboboxInput
-                        value={value}
-                        onChange={handleInput}
-                        disabled={!ready}
-                        placeholder="Search your location"
-                    />
-                    <ComboboxPopover>
-                        <ComboboxList>
-                            {status === "OK" &&
-                                data.map(({ id, description }) => (
-                                    <ComboboxOption
-                                        key={id}
-                                        value={description}
-                                    />
-                                ))}
-                        </ComboboxList>
-                    </ComboboxPopover>
-                </Combobox>
-            </div>
-        );
-    }
+    const libraries = ["places"];
+    const { isLoaded, loadError } = useLoadScript({
+        googleMapsApiKey: "AIzaSyCw9FAbOyHnq202RNFWEC5dsMTQfa-IHeE",
+        libraries,
+    });
+    if (loadError) return "Error";
+    if (!isLoaded) return "Loading...";
 
     return (
         <div className={classes.mapContainer}>
-            {/* <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
+            <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
                 <div className={classes.search}>
                     <div className={classes.searchIcon}>
                         <SearchIcon />
@@ -122,8 +68,8 @@ const Map = ({
                         }}
                     />
                 </div>
-            </Autocomplete> */}
-            <Search panTo={panTo} />
+            </Autocomplete>
+
             <GoogleMapReact
                 bootstrapURLKeys={{
                     key: "AIzaSyCw9FAbOyHnq202RNFWEC5dsMTQfa-IHeE",
@@ -172,31 +118,28 @@ const Map = ({
                                     </Typography>
                                     <img
                                         className={classes.pointer}
-                                        src={
-                                            place.slotImage
-                                                ? place.slotImage
-                                                : "https://1.bp.blogspot.com/-MbntNDjCYls/XTK0TFH0CkI/AAAAAAAAaLQ/fh59xEPaHAQpQhOE9N_maCmWipgtduKswCLcBGAs/s1600/IJM-allianz-duo-highway-2019-selinawing-02.png"
-                                        }
+                                        src={place.slotImage}
                                     />
-                                    <Rating
-                                        name="read-only"
-                                        size="small"
-                                        value={place.rating}
-                                        readOnly
-                                    />
+                                    <Typography
+                                        className={classes.typography}
+                                        variant="subtitle2"
+                                        gutterBottom
+                                    >
+                                        {" "}
+                                        RM {place.price} per day
+                                    </Typography>
+                                    <Typography
+                                        className={classes.typography}
+                                        variant="subtitle2"
+                                        gutterBottom
+                                    >
+                                        {" "}
+                                        {place.address}
+                                    </Typography>
                                 </Paper>
                             )}
                         </div>
                     ))}
-                {/* {weatherData?.list?.length &&
-                    weatherData.list.map((data, i) => (
-                        <div key={i} lat={data.coord.lat} lng={data.coord.lon}>
-                            <img
-                                src={`http://openweathermap.org/img/w/${data.weather[0].icon}.png`}
-                                height="70px"
-                            />
-                        </div>
-                    ))} */}
             </GoogleMapReact>
         </div>
     );

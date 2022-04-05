@@ -6,6 +6,8 @@ use App\Models\Checkout;
 use Illuminate\Http\Request;
 use App\Http\Controllers\APIController;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\CheckoutResource;
+use App\Http\Resources\CheckoutCollection;
 
 
 class CheckoutController extends ApiController
@@ -22,7 +24,6 @@ class CheckoutController extends ApiController
         if (! $user = auth()->setRequest($request)->user()) {
             return $this->responseUnauthorized();
         }
-        \Log::debug('Tanininini', $request->all());
 
         // Validate all the required parameters have been sent.
         $validator = Validator::make($request->all(), [
@@ -55,5 +56,26 @@ class CheckoutController extends ApiController
         } catch (Exception $e) {
             return $this->responseServerError('Error creating resource.');
         }
+    }
+
+     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        // Get user from $request token.
+        // if (! $user = auth()->setRequest($request)->user()) {
+        //     return $this->responseUnauthorized();
+        // }
+
+        $checkout = Checkout::where('user_id', $id)->get();
+        // User can only acccess their own data.
+        // if ($slot['user_id'] === $user->id) {
+        //     return $this->responseUnauthorized();
+        // }
+        return new CheckoutCollection($checkout);
     }
 }
