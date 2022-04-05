@@ -22,9 +22,10 @@ class CreateCheckoutTable extends Migration
             $table->string('slotID');
             $table->string('address');
             $table->float('price');
-            $table->string('slotStatus');
+            $table->string('reservationStatus');
             $table->string('paymentMethod');
             $table->string('paymentStatus');
+
         });
     }
 

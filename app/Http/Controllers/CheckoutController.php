@@ -39,12 +39,12 @@ class CheckoutController extends ApiController
         // Warning: Data isn't being fully sanitized yet.
         try {
             $checkout = Checkout::create([
-                'user_id' => $user->id,
+                'user_id' => request('user_id'),
                 'slotID' => request('slotID'),
                 'address' => request('address'),
                 'price' => request('price'),
-                'slotStatus' => request('slotStatus'),
-                'paymentMethod' => request('id'),
+                'reservationStatus' => request('reservationStatus'),
+                'paymentMethod' => request('paymentMethod'),
                 'paymentStatus'  => request('paymentStatus'),
             ]);
             return response()->json([

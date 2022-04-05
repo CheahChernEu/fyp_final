@@ -13,15 +13,13 @@ class Checkout extends Eloquent
     protected $collection = 'checkout';
 
     protected $fillable = [
-        'paymentID',
-
         'user_id',
         'slotID',
         'address',
         'created_at',
         'updated_at',
         'price',
-        'slotStatus',
+        'reservationStatus',
         'paymentStatus',
         'paymentMethod'
     ];

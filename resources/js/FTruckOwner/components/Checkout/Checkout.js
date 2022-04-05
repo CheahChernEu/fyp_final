@@ -10,6 +10,7 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
 import DatePicker from "react-multi-date-picker";
 import StripeCheckout from "react-stripe-checkout";
+import Http from "../../../Http";
 
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
@@ -34,6 +35,11 @@ const Checkout = ({ success, places, index }) => {
     const difference_In_Days = (startDate, endDate) => {
         const diffInMs = Math.abs(startDate - endDate);
         const days = Math.round(diffInMs / (1000 * 60 * 60 * 24));
+        if (days > 0) {
+            days + 1;
+        } else {
+            days;
+        }
         return days;
     };
 
@@ -81,33 +87,39 @@ const Checkout = ({ success, places, index }) => {
 
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
-    const [totalRents, setTotalRents] = useState(0);
     const [diffDays, setDiffDays] = useState(0);
 
     const session = JSON.parse(window.localStorage.getItem("user"));
-    const { userSession } = session;
+    const api = "/api/v1/checkout";
+    const slotApi = "/api/v1/slot";
 
     const onToken = (token) => {
-        // if(!isNaN(token.created)){
-        //         await axios
-        //     .post("/sendPayment", {
-        //         id,
-        //         price: slotObj.price,
-        //         slotID: slotObj.slotID,
-        //         address: slotObj.address,
-        //         slotStatus: slotObj.slotStatus,
-        //         paymentStatus: success,
-        //     })
-        //     .then(function (response) {
-        //         console.log(response);
-        //     });
+        const checkout = {
+            user_id: session.id,
+            price: slotObj.price,
+            slotID: slotObj.slotID,
+            address: slotObj.address,
+            reservationStatus: "Pending",
+            paymentStatus: "Successfull",
+            paymentMethod: token.type,
+        };
+        if (!isNaN(token.created)) {
+            Http.post(api, checkout)
+                .then(({ data }) => {
+                    console.log(data);
 
-        // } else {
-
-        // }
-
-        console.log(token);
-        console.log(token.email);
+                    // Http.patch(`${slotApi}/${data.checkoutObj.slotID}`, places)
+                    //     .then((response) => {
+                    //         console.log(response);
+                    //     })
+                    //     .catch(() => {
+                    //         console.log("failed to update");
+                    //     });
+                })
+                .catch(() => {
+                    console.log("failed to save data into database");
+                });
+        }
     };
     return (
         <div>
@@ -225,8 +237,7 @@ const Checkout = ({ success, places, index }) => {
                                 total_rents(
                                     slotObj.price,
                                     difference_In_Days(startDate, endDate)
-                                ) *
-                                    100
+                                )
                             }
                         />
                     )}

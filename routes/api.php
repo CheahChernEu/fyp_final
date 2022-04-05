@@ -33,7 +33,9 @@ Route::group([
     Route::apiResource('slot', 'SlotController');
     Route::apiResource('like', 'LikesController');
     Route::apiResource('comments', 'CommentsController');
+    Route::apiResource('checkout', 'CheckoutController');
 });
+
 
 // Not Found
 Route::fallback(function(){

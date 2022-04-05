@@ -75,16 +75,16 @@ const AddSlot = () => {
 
     const convertBase64 = (file) => {
         return new Promise((resolve, reject) => {
-          const fileReader = new FileReader();
-          fileReader.readAsDataURL(file);
-    
-          fileReader.onload = () => {
-            resolve(fileReader.result);
-          };
-    
-          fileReader.onerror = (error) => {
-            reject(error);
-          };
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+
+            fileReader.onload = () => {
+                resolve(fileReader.result);
+            };
+
+            fileReader.onerror = (error) => {
+                reject(error);
+            };
         });
     };
 
@@ -452,26 +452,20 @@ const AddSlot = () => {
                                     {dataState.length > 0 &&
                                         dataState.map((slot) => (
                                             <tr key={slot.id}>
-                                                <td>
-                                                    {slot.slotID}
-                                                </td>
+                                                <td>{slot.slotID}</td>
                                                 <td>
                                                     {slot.address
                                                         .slice(0, 30)
                                                         .concat("...")}
                                                 </td>
-                                                <td>
-                                                    {slot.price}
-                                                </td>
+                                                <td>{slot.price}</td>
                                                 <td>
                                                     <img
                                                         src={slot.slotImage}
                                                         className="rounded mx-auto d-block"
                                                     ></img>
                                                 </td>
-                                                <td>
-                                                    {slot.slotStatus}
-                                                </td>
+                                                <td>{slot.slotStatus}</td>
                                                 <td>
                                                     <span
                                                         type="button"
