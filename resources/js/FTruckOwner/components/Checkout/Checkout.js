@@ -103,18 +103,20 @@ const Checkout = ({ success, places, index }) => {
             paymentStatus: "Successfull",
             paymentMethod: token.type,
         };
+
+        const slot = {
+            slotStatus: "Booked",
+        };
         if (!isNaN(token.created)) {
             Http.post(api, checkout)
                 .then(({ data }) => {
-                    console.log(data);
-
-                    // Http.patch(`${slotApi}/${data.checkoutObj.slotID}`, places)
-                    //     .then((response) => {
-                    //         console.log(response);
-                    //     })
-                    //     .catch(() => {
-                    //         console.log("failed to update");
-                    //     });
+                    Http.patch(`${slotApi}/${data.checkoutObj.slotID}`, slot)
+                        .then((response) => {
+                            console.log(response);
+                        })
+                        .catch(() => {
+                            console.log("failed to update");
+                        });
                 })
                 .catch(() => {
                     console.log("failed to save data into database");

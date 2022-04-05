@@ -125,30 +125,31 @@ class SlotController extends ApiController
     public function update(Request $request, $id)
     {
         // Get user from $request token.
-        if (! $user = auth()->setRequest($request)->user()) {
-            return $this->responseUnauthorized();
-        }
+        // if (! $user = auth()->setRequest($request)->user()) {
+        //     return $this->responseUnauthorized();
+        // }
 
         // Validates data.
-        $validator = Validator::make($request->all(), [
-            'address' => 'string',
-            'slotID' => 'string',
-            'slotImage' => 'string',
-            'lat' => 'float',
-            'lng' => 'float',
-            'price' => 'double',
-            'rating' => 'integer',
-            'review' => 'string',
-            'slotStatus' => 'string',
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //     'address' => 'string',
+        //     'slotID' => 'string',
+        //     'slotImage' => 'string',
+        //     'lat' => 'float',
+        //     'lng' => 'float',
+        //     'price' => 'double',
+        //     'rating' => 'integer',
+        //     'review' => 'string',
+        //     'slotStatus' => 'string',
+        // ]);
 
-        if ($validator->fails()) {
-            return $this->responseUnprocessable($validator->errors());
-        }
+        // if ($validator->fails()) {
+        //     return $this->responseUnprocessable($validator->errors());
+        // }
 
         try {
-            $slot = Slot::where('_id', $id)->firstOrFail();
-            if ($slot['user_id'] === $user->id) {
+            $slot = Slot::where('slotID', $id)->firstOrFail();
+            \Log::debug($slot);
+            // if ($slot['user_id'] === $user->id) {
                 if (request('slotID')) {
                     $slot->slotID = request('slotID');
                 }
@@ -178,9 +179,9 @@ class SlotController extends ApiController
                 }
                 $slot->save();
                 return $this->responseResourceUpdated();
-            } else {
-                return $this->responseUnauthorized();
-            }
+            // } else {
+            //     return $this->responseUnauthorized();
+            // }
         } catch (Exception $e) {
             return $this->responseServerError('Error updating resource.');
         }
