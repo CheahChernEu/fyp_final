@@ -15,15 +15,18 @@ import { useHistory } from "react-router-dom";
 
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-import axios from "axios";
+import Moment from "moment";
 
-const Checkout = ({ success, places, index }) => {
+const Checkout = ({ places, index }) => {
     const [open, setOpen] = React.useState(false);
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down("xl"));
     const [slotObj, setSlotObj] = React.useState({});
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
+    const session = JSON.parse(window.localStorage.getItem("user"));
+    const api = "/api/v1/checkout";
+    const slotApi = "/api/v1/slot";
 
     let history = useHistory();
 
@@ -53,10 +56,6 @@ const Checkout = ({ success, places, index }) => {
         return totalCost;
     };
 
-    const session = JSON.parse(window.localStorage.getItem("user"));
-    const api = "/api/v1/checkout";
-    const slotApi = "/api/v1/slot";
-
     const onToken = (token) => {
         const checkout = {
             user_id: session.id,
@@ -66,6 +65,8 @@ const Checkout = ({ success, places, index }) => {
             reservationStatus: "Pending",
             paymentStatus: "Successful",
             paymentMethod: token.type,
+            startDate: Moment(startDate).format("DD-MM-YYYY"),
+            endDate: Moment(endDate).format("DD-MM-YYYY"),
         };
 
         const slot = {
@@ -74,6 +75,7 @@ const Checkout = ({ success, places, index }) => {
         if (!isNaN(token.created)) {
             Http.post(api, checkout)
                 .then(({ data }) => {
+                    console.log(data);
                     Http.patch(`${slotApi}/${data.checkoutObj.slotID}`, slot)
                         .then((response) => {
                             console.log(response);
@@ -233,21 +235,9 @@ const stripePromise = loadStripe(
 );
 
 const Index = ({ places, index }) => {
-    const [status, setStatus] = React.useState("ready");
-
-    if (status === "success") {
-        return <div>Congrats on your empanadas!</div>;
-    }
-
     return (
         <Elements stripe={stripePromise}>
-            <Checkout
-                success={() => {
-                    setStatus("success");
-                }}
-                places={places}
-                index={index}
-            />
+            <Checkout places={places} index={index} />
         </Elements>
     );
 };

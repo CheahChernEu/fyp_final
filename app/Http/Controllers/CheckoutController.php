@@ -47,6 +47,8 @@ class CheckoutController extends ApiController
                 'reservationStatus' => request('reservationStatus'),
                 'paymentMethod' => request('paymentMethod'),
                 'paymentStatus'  => request('paymentStatus'),
+                'startDate'  => request('startDate'),
+                'endDate'  =>request('endDate')
             ]);
             return response()->json([
                 'status' => 201,

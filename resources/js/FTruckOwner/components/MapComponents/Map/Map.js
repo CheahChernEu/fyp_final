@@ -2,27 +2,8 @@ import React from "react";
 import GoogleMapReact from "google-map-react";
 import { Paper, Typography, useMediaQuery, InputBase } from "@material-ui/core";
 import LocationOnOutlinedIcon from "@material-ui/icons/LocationOnOutlined";
-import Rating from "@material-ui/lab/Rating";
 import SearchIcon from "@material-ui/icons/Search";
-import {
-    Autocomplete,
-    LoadScript,
-    useLoadScript,
-} from "@react-google-maps/api";
-
-import usePlacesAutocomplete, {
-    getGeocode,
-    getLatLng,
-} from "use-places-autocomplete";
-import {
-    Combobox,
-    ComboboxInput,
-    ComboboxPopover,
-    ComboboxList,
-    ComboboxOption,
-} from "@reach/combobox";
-
-import "@reach/combobox/styles.css";
+import { Autocomplete, useLoadScript } from "@react-google-maps/api";
 
 import mapStyles from "../mapStyles";
 import useStyles from "./styles.js";

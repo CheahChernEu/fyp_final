@@ -26,25 +26,10 @@ const PlaceDetails = ({ place, selected, refProp, index, places }) => {
         <Card elevation={6}>
             <CardMedia style={{ height: 350 }} image={place.slotImage} />
             <CardContent>
-                <Box display="flex" justifyContent="space-between" my={2}>
-                    {place.rating !== null && (
-                        <Rating
-                            name="read-only"
-                            value={place.rating}
-                            readOnly
-                        />
-                    )}
-                    {place.review !== null && (
-                        <Typography component="legend">
-                            {place.review} review
-                            {Number(place.review) > 1 && "s"}
-                        </Typography>
-                    )}
-                </Box>
                 <Box display="flex" justifyContent="space-between">
-                    <Typography component="legend">Price</Typography>
+                    <Typography component="legend">Price (in RM)</Typography>
                     <Typography gutterBottom variant="subtitle1">
-                        RM {place.price}
+                        {place.price}
                     </Typography>
                 </Box>
 

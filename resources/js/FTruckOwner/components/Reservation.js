@@ -35,11 +35,13 @@ const Reservation = () => {
                                 <th>Slot ID</th>
                                 <th>Address</th>
                                 <th>Price (in RM)</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
                                 <th>Reservation Status</th>
                                 <th>Payment Status</th>
                             </tr>
 
-                            {dataState.length > 0 &&
+                            {dataState.length > 0 ? (
                                 dataState.map((slot) => (
                                     <tr key={slot.id}>
                                         <td>{slot.slotID}</td>
@@ -49,11 +51,17 @@ const Reservation = () => {
                                                 .concat("...")}
                                         </td>
                                         <td>{slot.price}</td>
-
+                                        <td>{slot.startDate}</td>
+                                        <td>{slot.endDate}</td>
                                         <td>{slot.reservationStatus}</td>
                                         <td>{slot.paymentStatus}</td>
                                     </tr>
-                                ))}
+                                ))
+                            ) : (
+                                <h2 style={{ margin: "auto" }}>
+                                    No reservation is made yet!
+                                </h2>
+                            )}
                         </tbody>
                     </table>
                 </div>

@@ -21,7 +21,9 @@ class Checkout extends Eloquent
         'price',
         'reservationStatus',
         'paymentStatus',
-        'paymentMethod'
+        'paymentMethod',
+        'startDate',
+        'endDate'
     ];
 
 }

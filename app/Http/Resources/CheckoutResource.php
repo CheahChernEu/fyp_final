@@ -22,6 +22,8 @@ class CheckoutResource extends ApiResource
             'price' => $this->price,
             'reservationStatus' => $this->reservationStatus,
             'paymentStatus' => $this->paymentStatus,
+            'startDate' => $this->startDate,
+            'endDate' => $this->endDate,
 
         ];
     }

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { CssBaseline, Grid } from "@material-ui/core";
-
 import List from "../../FTruckOwner/components/MapComponents/List/List";
 import Map from "../../FTruckOwner/components/MapComponents/Map/Map";
 import OwnerHeader from "../../components/FoodTruckOwnerHeader";
@@ -34,10 +33,8 @@ const ViewFoodTruckSlot = () => {
     }, []);
 
     useEffect(() => {
-        //Http.get(`${api}?status=open`)
         Http.get(api)
             .then((res) => {
-                // setIsLoading(true);
                 const { data } = res.data;
                 console.log(data);
                 setPlaces(data);

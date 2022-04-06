@@ -61,7 +61,7 @@ const AddSlot = () => {
         price: "",
         review: null,
         rating: null,
-        slotStatus: "available",
+        slotStatus: "Available",
     });
 
     const uploadImage = async (e) => {
@@ -133,13 +133,13 @@ const AddSlot = () => {
                         price: "",
                         review: null,
                         rating: null,
-                        slotStatus: "available",
+                        slotStatus: "Available",
                     });
                     setError(false);
                 })
                 .catch(() => {
                     setError(
-                        "Sorry, there was an error nananana saving your food truck slot."
+                        "Sorry, there was an error saving your food truck slot."
                     );
                 });
         } else {
@@ -157,13 +157,13 @@ const AddSlot = () => {
                         price: "",
                         review: null,
                         rating: null,
-                        slotStatus: "available",
+                        slotStatus: "Available",
                     });
                     setError(false);
                 })
                 .catch(() => {
                     setError(
-                        "Sorry, there was an error hehehehe saving your food truck slot."
+                        "Sorry, there was an error saving your food truck slot."
                     );
                 });
         }
