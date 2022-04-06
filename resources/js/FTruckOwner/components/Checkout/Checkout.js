@@ -84,6 +84,9 @@ const Checkout = ({ places, index }) => {
                         .catch(() => {
                             console.log("failed to update");
                         });
+                    setStartDate(new Date());
+                    setEndDate(new Date());
+                    setSlotObj({});
                 })
                 .catch(() => {
                     console.log("failed to save data into database");
@@ -205,13 +208,7 @@ const Checkout = ({ places, index }) => {
                                     difference_In_Days(startDate, endDate)
                                 ) * 100
                             }
-                            label={
-                                "Pay RM " +
-                                total_rents(
-                                    slotObj.price,
-                                    difference_In_Days(startDate, endDate)
-                                )
-                            }
+                            label={"F_Truck Officials Sdn Bhd"}
                         />
                     )}
 
