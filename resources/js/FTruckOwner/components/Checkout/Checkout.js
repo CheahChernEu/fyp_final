@@ -43,7 +43,7 @@ const Checkout = ({ places, index }) => {
     const difference_In_Days = (startDate, endDate) => {
         if (endDate >= startDate) {
             const diffInMs = Math.abs(startDate - endDate);
-            const days = Math.round(diffInMs / (1000 * 60 * 60 * 24) + 1);
+            const days = Math.round(diffInMs / (1000 * 60 * 60 * 24));
             return days;
         } else {
             return 0;
