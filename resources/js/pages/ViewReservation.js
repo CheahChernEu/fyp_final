@@ -2,12 +2,23 @@ import React, { useState, useEffect } from "react";
 import AdminHeader from './../components/AdminHeader';
 import Http from "./../Http";
 import swal from "sweetalert";
+import { useForm } from "react-hook-form";
 
 const ViewReservation = () => {
     const api = "/api/v1/checkout";
+    const slotApi = "/api/v1/slot";
 
     const [dataState, setData] = useState([]);
     const [error, setError] = useState(false);
+    const { handleSubmit, errors } = useForm();
+    const [stateForm, setStateForm] = useState({
+        slotID: "",
+        address: "",
+        startDate: "",
+        endDate: "",
+        paymentStatus: "",
+        reservationStatus: "",
+    });
     
 
     useEffect(() => {
@@ -23,6 +34,46 @@ const ViewReservation = () => {
                 setError("Unable to fetch data.");
             });
     }, []);
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setStateForm({
+            ...stateForm,
+            [name]: value,
+        });
+    };
+
+    const onSubmit = () => {
+        updateReservation(stateForm);
+    };
+
+    const updateReservation = (checkout) => {
+        Http.patch(`${api}/${checkout}`, checkout)
+            .then((response) => {
+                console.log(response);
+                let filterSlots = dataState.filter(
+                    (chk) => chk.id !== checkout.slotID
+                );
+                filterSlots = [checkout, ...filterSlots];
+                setData(filterSlots);
+                setStateForm({
+                    reservationStatus: "",
+                });
+                setError(false);
+            })
+            .catch(() => {
+                setError(
+                    "Sorry, there was an error saving your food truck slot."
+                );
+            });
+    }
+
+    const editReservation = (checkout) => {
+        const { id } = checkout;
+        let form = dataState.filter((chk) => chk.id === id);
+        console.log(id, form);
+        setStateForm(form[0]);
+    };
 
     const deleteReservation = (e) => {
         const { key } = e.target.dataset;
@@ -51,7 +102,7 @@ const ViewReservation = () => {
                         } else {
                             swal(
                                 "Unable to Delete!",
-                                "There was an error processing.",
+                                "There was an error processing. 1",
                                 { icon: "warning" }
                             );
                         }
@@ -62,7 +113,7 @@ const ViewReservation = () => {
                         setError("There was an error processing.");
                         swal(
                             "Unable to Delete!",
-                            "There was an error processing.",
+                            "There was an error processing. 2",
                             { icon: "warning" }
                         );
                     });
@@ -88,10 +139,10 @@ const ViewReservation = () => {
                                         <th>Price</th>
                                         <th>Start Date</th>
                                         <th>End Date</th>
-                                        <th>Payment Method</th>
                                         <th>Payment Status</th>
                                         <th>Reservation Status</th>
-                                        <th>Action</th>
+                                        <th>Edit</th>
+                                        <th>Delete</th>
                                     </tr>
                                     {dataState.length > 0 ? (
                                         dataState.map((checkout) => (
@@ -105,15 +156,36 @@ const ViewReservation = () => {
                                                 <td>{checkout.price}</td>
                                                 <td>{checkout.startDate}</td>
                                                 <td>{checkout.endDate}</td>
-                                                <td>{checkout.paymentMethod}</td>
                                                 <td>{checkout.paymentStatus}</td>
                                                 <td>{checkout.reservationStatus}</td>
                                                 <td>
                                                     <span
                                                         type="button"
+                                                        className="badge badge-dark"
+                                                        onClick={
+                                                            checkout.slotID =! null ?
+                                                                editReservation
+                                                                : (checkout) =>
+                                                                      console.log(
+                                                                          "error"
+                                                                      )
+                                                        }
+                                                        data-key={checkout.id}
+                                                    >
+                                                        Edit
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span
+                                                        type="button"
                                                         className="badge badge-danger"
                                                         onClick={
-                                                            deleteReservation
+                                                            checkout.slotID =! null ?
+                                                                deleteReservation
+                                                                : () =>
+                                                                      console.log(
+                                                                          "error"
+                                                                      )
                                                         }
                                                         data-key={checkout.id}
                                                     >
@@ -137,17 +209,21 @@ const ViewReservation = () => {
                             <h1 className="text-center mb-4">
                                 Manage Reservations
                             </h1>
-                            <form method="post">
+                            <form 
+                                method="post"
+                                onSubmit={handleSubmit(onSubmit)}
+                            >
                                 <div className="form-group">
-                                    <label htmlFor="reservationNo">
-                                        Reservation No
+                                    <label htmlFor="slotNo">
+                                        Slot No
                                     </label>
                                     <input
-                                        id="reservationNo"
-                                        type="reservationNo"
-                                        name="reservationNo"
+                                        id="slotNo"
+                                        type="slotNo"
+                                        name="slotNo"
                                         className="form-control mr-3"
-                                        value="R01"
+                                        value={dataState.slotID}
+                                        onChange={handleChange}
                                         disabled
                                     />
                                 </div>
@@ -158,20 +234,31 @@ const ViewReservation = () => {
                                         type="paymentStatus"
                                         name="paymentStatus"
                                         className="form-control mr-3"
-                                        value="Successful"
+                                        value={dataState.paymentStatus}
+                                        onChange={handleChange}
                                         disabled
                                     />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="">Reservation Status</label>
                                     <input
-                                        id="paymentStatus"
-                                        type="paymentStatus"
-                                        name="paymentStatus"
+                                        id="reservationStatus"
+                                        type="reservationStatus"
+                                        name="reservationStatus"
                                         className="form-control mr-3"
-                                        value="Pending"
+                                        value={dataState.reservationStatus}
                                     />
                                 </div>
+                                {/*<div className="form-group">
+                                    <label htmlFor="">Slot Status</label>
+                                    <input
+                                        id="slotStatus"
+                                        type="slotStatus"
+                                        name="slotStatus"
+                                        className="form-control mr-3"
+                                        value={stateForm.slotStatus}
+                                    />
+                                </div>*/}
                                 <button
                                     type="submit"
                                     className="btn btn-block btn-outline-primary"

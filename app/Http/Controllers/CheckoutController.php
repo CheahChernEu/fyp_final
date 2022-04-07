@@ -84,4 +84,47 @@ class CheckoutController extends ApiController
 
         return new CheckoutCollection($collection);
     }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+
+        try {
+            $checkout = Checkout::where('slotID', $id)->firstOrFail();
+            \Log::debug($checkout);
+                if (request('reservationStatus')) {
+                    $checkout->reservationStatus = request('reservationStatus');
+                }
+                $checkout->save();
+                return $this->responseResourceUpdated();
+            // } else {
+            //     return $this->responseUnauthorized();
+            // }
+        } catch (Exception $e) {
+            return $this->responseServerError('Error updating resource.');
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request)
+    {
+        $checkout = Checkout::get()->firstOrFail();
+        try {
+            $checkout->delete();
+            return $this->responseResourceDeleted();
+        } catch (Exception $e) {
+            return $this->responseServerError('Error deleting resource.');
+        }
+    }
 }
