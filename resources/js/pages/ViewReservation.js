@@ -262,6 +262,16 @@ const ViewReservation = () => {
                                 <button
                                     type="submit"
                                     className="btn btn-block btn-outline-primary"
+                                    style={{
+                                        height: "36px",
+                                        background: "#556cd6",
+                                        color: "white",
+                                        width: "100%",
+                                        fontsize: "14px",
+                                        border: "0",
+                                        fontweight: "500",
+                                        cursor: "pointer"
+                                    }}
                                 >
                                     Save
                                 </button>
