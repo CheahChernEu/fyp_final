@@ -31,6 +31,8 @@ class CheckoutController extends ApiController
             'slotID' => 'required',
             'price' => 'required',
             'user_id' => 'required',
+            'reservationStatus' => 'required',
+
         ]);
 
         if ($validator->fails()) {
@@ -68,16 +70,18 @@ class CheckoutController extends ApiController
      */
     public function show($id)
     {
-        // Get user from $request token.
-        // if (! $user = auth()->setRequest($request)->user()) {
-        //     return $this->responseUnauthorized();
-        // }
+
 
         $checkout = Checkout::where('user_id', $id)->get();
-        // User can only acccess their own data.
-        // if ($slot['user_id'] === $user->id) {
-        //     return $this->responseUnauthorized();
-        // }
+
         return new CheckoutCollection($checkout);
+    }
+
+    public function index(Request $request)
+    {
+
+        $collection = Checkout::get();
+
+        return new CheckoutCollection($collection);
     }
 }

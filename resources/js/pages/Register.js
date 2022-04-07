@@ -92,7 +92,7 @@ const Register = (props) => {
     };
     return (
         <>
-            {isAuthenticated && <Redirect to="/" replace />}
+            {isAuthenticated && <Redirect to="/home" replace />}
             <AdminHeader />
             <div className="d-flex flex-column flex-row align-content-center py-5">
                 <div className="container">

@@ -198,9 +198,7 @@ const Checkout = ({ places, index }) => {
                         <StripeCheckout
                             token={onToken}
                             stripeKey="pk_test_51KjCibLroMhKOKfoup1NmOhShBZdK3rPR3cVU2AwjAjmoogcqN0MAvXfhUk4gJJy4vjz8iEN4F331tCI8v1DeMQA00t418FV4i"
-                            name={
-                                "Reserve Food Truck Slot ID " + slotObj.slotID
-                            }
+                            name={"F_Truck Officials Sdn Bhd"}
                             currency="MYR"
                             amount={
                                 total_rents(
@@ -208,7 +206,13 @@ const Checkout = ({ places, index }) => {
                                     difference_In_Days(startDate, endDate)
                                 ) * 100
                             }
-                            label={"F_Truck Officials Sdn Bhd"}
+                            label={
+                                "Checkout RM " +
+                                total_rents(
+                                    slotObj.price,
+                                    difference_In_Days(startDate, endDate)
+                                )
+                            }
                         />
                     )}
 

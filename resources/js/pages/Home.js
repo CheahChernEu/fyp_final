@@ -34,7 +34,6 @@ const Home = (props) => {
     const [loading, setLoading] = useState(false);
     const [response, setResponse] = useState({ error: false, message: "" });
 
-    console.log("Ressss", res.type);
     const { from } =
         res.type === "user"
             ? props.location.state || {
