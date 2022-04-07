@@ -1,13 +1,16 @@
 import React from 'react'
 import AdminHeader from './../components/AdminHeader';
-export default function AdminDashboard() {
+
+const AdminDashboard = () => {
+  const session = JSON.parse(window.localStorage.getItem("user"));
   return (
       <>
       <AdminHeader />
       <section className="hero-section">
           <p>Welcome </p>
-          <h1>Admin</h1>
+          <h1>Admin {session.licenseNo}</h1>
       </section>
       </>
   )
 }
+export default AdminDashboard;

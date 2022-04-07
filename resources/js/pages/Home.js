@@ -6,7 +6,7 @@ import AuthService from "../services";
 import classNames from "classnames";
 import { useForm } from "react-hook-form";
 import logo from "../assets/logo.png";
-import AdminHeader from "./../components/AdminHeader";
+import HomeHeader from "./../components/HomeHeader";
 import { set } from "lodash";
 
 const Home = (props) => {
@@ -106,7 +106,7 @@ const Home = (props) => {
             {isAuthenticated && typeof res.type !== "undefined" && (
                 <Redirect to={from} />
             )}
-            <AdminHeader />
+            <HomeHeader />
             <div className="d-flex flex-column flex-md-row align-items-md-center py-5">
                 <div className="container">
                     <div className="row">
@@ -239,7 +239,7 @@ const Home = (props) => {
                                                     }
                                                 )}
                                                 name="licenseNo"
-                                                placeholder="Enter licenseNo"
+                                                placeholder="Enter licenseNo/staffNo"
                                                 required
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
@@ -270,7 +270,7 @@ const Home = (props) => {
                                         </div>
 
                                         <div className="login-invite-text text-center">
-                                            {"Don't have an account?"}
+                                            {"Don't have an account? "}
                                             <Link to="/register">Register</Link>
                                             .
                                         </div>

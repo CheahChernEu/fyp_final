@@ -1,6 +1,75 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import AdminHeader from './../components/AdminHeader';
-export default function ViewReservation() {
+import Http from "./../Http";
+import swal from "sweetalert";
+
+const ViewReservation = () => {
+    const api = "/api/v1/checkout";
+
+    const [dataState, setData] = useState([]);
+    const [error, setError] = useState(false);
+    
+
+    useEffect(() => {
+        //Http.get(`${api}?status=open`)
+        Http.get(api)
+            .then((response) => {
+                const { data } = response.data;
+                console.log(data);
+                setData(data);
+                setError(false);
+            })
+            .catch((err) => {
+                setError("Unable to fetch data.");
+            });
+    }, []);
+
+    const deleteReservation = (e) => {
+        const { key } = e.target.dataset;
+        swal({
+            slotID: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this reservation!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((willDelete) => {
+            if (willDelete) {
+                Http.delete(`${api}/${key}`)
+                    .then((response) => {
+                        console.log(key);
+                        console.log(response);
+                        if (response.status === 204) {
+                            const updateState = dataState.filter(
+                                (checkout) => checkout.id !== key
+                            );
+                            setError(false);
+                            setData(updateState);
+                            console.log("Reservation:", updateState);
+                            swal("The reservation has been deleted!", {
+                                icon: "success",
+                            });
+                        } else {
+                            swal(
+                                "Unable to Delete!",
+                                "There was an error processing.",
+                                { icon: "warning" }
+                            );
+                        }
+                    })
+                    .catch((errorResponse) => {
+                        console.log(errorResponse);
+                        console.log(errorResponse);
+                        setError("There was an error processing.");
+                        swal(
+                            "Unable to Delete!",
+                            "There was an error processing.",
+                            { icon: "warning" }
+                        );
+                    });
+            }
+        });
+    };
+
     return (
         <>
             <AdminHeader />
@@ -14,41 +83,51 @@ export default function ViewReservation() {
                             <table className="table table-striped">
                                 <tbody>
                                     <tr>
-                                        <th>Reservation No</th>
-                                        <th>Payment Status</th>
-                                        <th>Reservation Date</th>
-                                        <th>Reservation Duration (months)</th>
-                                        <th>Reservation Status</th>
-                                        <th>License No</th>
-                                        <th>Email</th>
                                         <th>Slot No</th>
+                                        <th>Address</th>
+                                        <th>Price</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                        <th>Payment Method</th>
+                                        <th>Payment Status</th>
+                                        <th>Reservation Status</th>
                                         <th>Action</th>
                                     </tr>
-                                    <tr>
-                                        <td>R01</td>
-                                        <td>Successful</td>
-                                        <td>22/11/2022</td>
-                                        <td>2</td>
-                                        <td>Pending</td>
-                                        <td>4125718</td>
-                                        <td>waihoe1109@gmail.com</td>
-                                        <td>B01</td>
-                                        <td>
-                                            <span
-                                                type="button"
-                                                className="badge badge-dark"
-                                            >
-                                                Edit
-                                            </span>
-                                            <span></span>
-                                            <span
-                                                type="button"
-                                                className="badge badge-danger"
-                                            >
-                                                Delete
-                                            </span>
-                                        </td>
-                                    </tr>
+                                    {dataState.length > 0 ? (
+                                        dataState.map((checkout) => (
+                                            <tr key={checkout.id}>
+                                                <td>{checkout.slotID}</td>
+                                                <td>
+                                                {checkout.address
+                                                    .slice(0, 30)
+                                                    .concat("...")}
+                                                </td>
+                                                <td>{checkout.price}</td>
+                                                <td>{checkout.startDate}</td>
+                                                <td>{checkout.endDate}</td>
+                                                <td>{checkout.paymentMethod}</td>
+                                                <td>{checkout.paymentStatus}</td>
+                                                <td>{checkout.reservationStatus}</td>
+                                                <td>
+                                                    <span
+                                                        type="button"
+                                                        className="badge badge-danger"
+                                                        onClick={
+                                                            deleteReservation
+                                                        }
+                                                        data-key={checkout.id}
+                                                    >
+                                                        Delete
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        ))
+                                        ) : (
+                                            <h3 style={{ margin: "auto" }}>
+                                                No reservation is made yet!
+                                            </h3>
+                                        )
+                                    }
                                 </tbody>
                             </table>
                         </div>
@@ -107,3 +186,5 @@ export default function ViewReservation() {
         </>
     );
 }
+
+export default ViewReservation;
