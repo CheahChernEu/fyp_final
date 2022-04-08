@@ -239,6 +239,83 @@ const ViewReservation = () => {
                             </table>
                         </div>
                     </div>
+<<<<<<< HEAD
+=======
+                    <div className="row">
+                        <div className="add-todos mb-5">
+                            <h1 className="text-center mb-4">
+                                Manage Reservations
+                            </h1>
+                            <form 
+                                method="post"
+                                onSubmit={handleSubmit(onSubmit)}
+                            >
+                                <div className="form-group">
+                                    <label htmlFor="slotNo">
+                                        Slot No
+                                    </label>
+                                    <input
+                                        id="slotNo"
+                                        type="slotNo"
+                                        name="slotNo"
+                                        className="form-control mr-3"
+                                        value={dataState.slotID}
+                                        onChange={handleChange}
+                                        disabled
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="">Payment Status</label>
+                                    <input
+                                        id="paymentStatus"
+                                        type="paymentStatus"
+                                        name="paymentStatus"
+                                        className="form-control mr-3"
+                                        value={dataState.paymentStatus}
+                                        onChange={handleChange}
+                                        disabled
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="">Reservation Status</label>
+                                    <input
+                                        id="reservationStatus"
+                                        type="reservationStatus"
+                                        name="reservationStatus"
+                                        className="form-control mr-3"
+                                        value={dataState.reservationStatus}
+                                    />
+                                </div>
+                                {/*<div className="form-group">
+                                    <label htmlFor="">Slot Status</label>
+                                    <input
+                                        id="slotStatus"
+                                        type="slotStatus"
+                                        name="slotStatus"
+                                        className="form-control mr-3"
+                                        value={stateForm.slotStatus}
+                                    />
+                                </div>*/}
+                                <button
+                                    type="submit"
+                                    className="btn btn-block btn-outline-primary"
+                                    style={{
+                                        height: "36px",
+                                        background: "#556cd6",
+                                        color: "white",
+                                        width: "100%",
+                                        fontsize: "14px",
+                                        border: "0",
+                                        fontweight: "500",
+                                        cursor: "pointer"
+                                    }}
+                                >
+                                    Save
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+>>>>>>> 83886dd0bdc927e6ce6635fc0fd61d31e0d7b36a
                 </div>
             </div>
         </>
