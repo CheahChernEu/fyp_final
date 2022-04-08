@@ -126,11 +126,11 @@ const AddStaff = (props) => {
                                     )}
 
                                     {!success && (
-                                        <form
+                                            <form
                                             className="form-horizontal"
                                             method="POST"
                                             onSubmit={handleSubmit(onSubmit)}
-                                        >
+                                            >
                                             <div className="form-group">
                                                 <label htmlFor="name">
                                                     Staff Number
@@ -149,7 +149,7 @@ const AddStaff = (props) => {
                                                                 errors,
                                                         }
                                                     )}
-                                                    placeholder="Enter License No"
+                                                    placeholder="Enter Staff No"
                                                     required
                                                     onChange={handleChange}
                                                     onBlur={handleBlur}
