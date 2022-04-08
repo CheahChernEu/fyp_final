@@ -70,20 +70,12 @@ class CheckoutController extends ApiController
      */
     public function show($id)
     {
-
-
+        $checkout = Checkout::where('slotID', $id)->get();
         $checkout = Checkout::where('user_id', $id)->get();
-
         return new CheckoutCollection($checkout);
+
     }
 
-    public function index(Request $request)
-    {
-
-        $collection = Checkout::get();
-
-        return new CheckoutCollection($collection);
-    }
 
     /**
      * Update the specified resource in storage.
@@ -95,36 +87,31 @@ class CheckoutController extends ApiController
     public function update(Request $request, $id)
     {
 
+
         try {
             $checkout = Checkout::where('slotID', $id)->firstOrFail();
-            \Log::debug($checkout);
-                if (request('reservationStatus')) {
+
+
+                if (request('slotID')) {
+                    $checkout->slotID = request('slotID');
+                }
+                  if (request('reservationStatus')) {
                     $checkout->reservationStatus = request('reservationStatus');
                 }
+
                 $checkout->save();
                 return $this->responseResourceUpdated();
-            // } else {
-            //     return $this->responseUnauthorized();
-            // }
+
         } catch (Exception $e) {
             return $this->responseServerError('Error updating resource.');
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Request $request)
+    public function index(Request $request)
     {
-        $checkout = Checkout::get()->firstOrFail();
-        try {
-            $checkout->delete();
-            return $this->responseResourceDeleted();
-        } catch (Exception $e) {
-            return $this->responseServerError('Error deleting resource.');
-        }
+
+        $collection = Checkout::get();
+
+        return new CheckoutCollection($collection);
     }
 }

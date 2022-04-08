@@ -25,11 +25,10 @@ class CreateCheckoutTable extends Migration
             $table->string('reservationStatus');
             $table->string('paymentMethod');
             $table->string('paymentStatus');
-             $table->string('paymentMethod');
+            $table->string('paymentMethod');
             $table->string('paymentStatus');
-              $table->timestamps('startDate');
-              $table->timestamps('endDate');
-
+            $table->timestamps('startDate');
+            $table->timestamps('endDate');
 
         });
     }

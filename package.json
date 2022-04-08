@@ -43,6 +43,7 @@
         "date-fns": "^2.28.0",
         "google-map-react": "^2.1.10",
         "moment": "^2.29.2",
+        "react-alert": "^7.0.3",
         "react-bootstrap": "^1.4.3",
         "react-file-base64": "^1.0.3",
         "react-geocode": "^0.2.3",

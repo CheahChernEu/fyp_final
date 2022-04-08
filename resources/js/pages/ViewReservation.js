@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import AdminHeader from './../components/AdminHeader';
+import AdminHeader from "./../components/AdminHeader";
 import Http from "./../Http";
 import swal from "sweetalert";
 import { useForm } from "react-hook-form";
@@ -7,22 +7,18 @@ import { useForm } from "react-hook-form";
 const ViewReservation = () => {
     const api = "/api/v1/checkout";
     const slotApi = "/api/v1/slot";
-
+    const [slot, setSlot] = useState({});
     const [dataState, setData] = useState([]);
     const [error, setError] = useState(false);
     const { handleSubmit, errors } = useForm();
     const [stateForm, setStateForm] = useState({
         slotID: "",
-        address: "",
-        startDate: "",
-        endDate: "",
         paymentStatus: "",
         reservationStatus: "",
+        slotStatus: "",
     });
-    
 
     useEffect(() => {
-        //Http.get(`${api}?status=open`)
         Http.get(api)
             .then((response) => {
                 const { data } = response.data;
@@ -35,44 +31,87 @@ const ViewReservation = () => {
             });
     }, []);
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setStateForm({
-            ...stateForm,
-            [name]: value,
-        });
-    };
+    const statusUpdate = (checkout) => {
+        const slotStatus = {
+            slotStatus: "Available",
+        };
 
-    const onSubmit = () => {
-        updateReservation(stateForm);
-    };
+        const reservationStatus = {
+            reservationStatus: "Rejected",
+        };
 
-    const updateReservation = (checkout) => {
-        Http.patch(`${api}/${checkout}`, checkout)
+        Http.get(`${api}/${checkout.slotID}`)
             .then((response) => {
-                console.log(response);
-                let filterSlots = dataState.filter(
-                    (chk) => chk.id !== checkout.slotID
-                );
-                filterSlots = [checkout, ...filterSlots];
-                setData(filterSlots);
-                setStateForm({
-                    reservationStatus: "",
-                });
-                setError(false);
-            })
-            .catch(() => {
-                setError(
-                    "Sorry, there was an error saving your food truck slot."
-                );
-            });
-    }
+                const { data } = response.data;
+                setSlot(data[0]);
 
-    const editReservation = (checkout) => {
-        const { id } = checkout;
-        let form = dataState.filter((chk) => chk.id === id);
-        console.log(id, form);
-        setStateForm(form[0]);
+                Http.patch(`${api}/${data[0].slotID}`, reservationStatus)
+                    .then((response) => {
+                        console.log("reservation status");
+                        console.log(response);
+                    })
+                    .catch(() => {
+                        setError(
+                            "Sorry, there was an error saving your food truck slot."
+                        );
+                    });
+
+                Http.patch(`${slotApi}/${data[0].slotID}`, slotStatus)
+                    .then((response) => {
+                        console.log("SlotStatus");
+                        console.log(response);
+                    })
+                    .catch(() => {
+                        setError(
+                            "Sorry, there was an error saving your food truck slot."
+                        );
+                    });
+            })
+            .catch((err) => {
+                console.log("Failed to retrieve data");
+            });
+    };
+
+    const updateStatus = (checkout) => {
+        const slotStatus = {
+            slotStatus: "Unavailable",
+        };
+
+        const reservationStatus = {
+            reservationStatus: "Comfirmed",
+        };
+
+        Http.get(`${api}/${checkout.slotID}`)
+            .then((response) => {
+                const { data } = response.data;
+                setSlot(data[0]);
+                console.log("data");
+                console.log(data[0]);
+                Http.patch(`${api}/${data[0].slotID}`, reservationStatus)
+                    .then((response) => {
+                        console.log("reservation status");
+                        console.log(response);
+                    })
+                    .catch(() => {
+                        setError(
+                            "Sorry, there was an error saving your food truck slot."
+                        );
+                    });
+
+                Http.patch(`${slotApi}/${data[0].slotID}`, slotStatus)
+                    .then((response) => {
+                        console.log("SlotStatus");
+                        console.log(response);
+                    })
+                    .catch(() => {
+                        setError(
+                            "Sorry, there was an error saving your food truck slot."
+                        );
+                    });
+            })
+            .catch((err) => {
+                console.log("Failed to retrieve data");
+            });
     };
 
     const deleteReservation = (e) => {
@@ -141,137 +180,69 @@ const ViewReservation = () => {
                                         <th>End Date</th>
                                         <th>Payment Status</th>
                                         <th>Reservation Status</th>
-                                        <th>Edit</th>
-                                        <th>Delete</th>
+                                        <th>Approve</th>
+                                        <th>Reject</th>
                                     </tr>
                                     {dataState.length > 0 ? (
                                         dataState.map((checkout) => (
                                             <tr key={checkout.id}>
                                                 <td>{checkout.slotID}</td>
                                                 <td>
-                                                {checkout.address
-                                                    .slice(0, 30)
-                                                    .concat("...")}
+                                                    {checkout.address
+                                                        .slice(0, 30)
+                                                        .concat("...")}
                                                 </td>
                                                 <td>{checkout.price}</td>
                                                 <td>{checkout.startDate}</td>
                                                 <td>{checkout.endDate}</td>
-                                                <td>{checkout.paymentStatus}</td>
-                                                <td>{checkout.reservationStatus}</td>
+                                                <td>
+                                                    {checkout.paymentStatus}
+                                                </td>
+                                                <td>
+                                                    {checkout.reservationStatus}
+                                                </td>
+
                                                 <td>
                                                     <span
                                                         type="button"
                                                         className="badge badge-dark"
-                                                        onClick={
-                                                            checkout.slotID =! null ?
-                                                                editReservation
-                                                                : (checkout) =>
-                                                                      console.log(
-                                                                          "error"
-                                                                      )
-                                                        }
-                                                        data-key={checkout.id}
+                                                        onClick={() => {
+                                                            updateStatus(
+                                                                checkout
+                                                            );
+                                                        }}
                                                     >
-                                                        Edit
+                                                        Approve
                                                     </span>
                                                 </td>
                                                 <td>
                                                     <span
                                                         type="button"
-                                                        className="badge badge-danger"
-                                                        onClick={
-                                                            checkout.slotID =! null ?
-                                                                deleteReservation
-                                                                : () =>
-                                                                      console.log(
-                                                                          "error"
-                                                                      )
-                                                        }
-                                                        data-key={checkout.id}
+                                                        className="badge badge-dark"
+                                                        onClick={() => {
+                                                            statusUpdate(
+                                                                checkout
+                                                            );
+                                                        }}
                                                     >
-                                                        Delete
+                                                        Reject
                                                     </span>
                                                 </td>
                                             </tr>
                                         ))
-                                        ) : (
-                                            <h3 style={{ margin: "auto" }}>
-                                                No reservation is made yet!
-                                            </h3>
-                                        )
-                                    }
+                                    ) : (
+                                        <h3 style={{ margin: "auto" }}>
+                                            No reservation is made yet!
+                                        </h3>
+                                    )}
                                 </tbody>
                             </table>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="add-todos mb-5">
-                            <h1 className="text-center mb-4">
-                                Manage Reservations
-                            </h1>
-                            <form 
-                                method="post"
-                                onSubmit={handleSubmit(onSubmit)}
-                            >
-                                <div className="form-group">
-                                    <label htmlFor="slotNo">
-                                        Slot No
-                                    </label>
-                                    <input
-                                        id="slotNo"
-                                        type="slotNo"
-                                        name="slotNo"
-                                        className="form-control mr-3"
-                                        value={dataState.slotID}
-                                        onChange={handleChange}
-                                        disabled
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="">Payment Status</label>
-                                    <input
-                                        id="paymentStatus"
-                                        type="paymentStatus"
-                                        name="paymentStatus"
-                                        className="form-control mr-3"
-                                        value={dataState.paymentStatus}
-                                        onChange={handleChange}
-                                        disabled
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="">Reservation Status</label>
-                                    <input
-                                        id="reservationStatus"
-                                        type="reservationStatus"
-                                        name="reservationStatus"
-                                        className="form-control mr-3"
-                                        value={dataState.reservationStatus}
-                                    />
-                                </div>
-                                {/*<div className="form-group">
-                                    <label htmlFor="">Slot Status</label>
-                                    <input
-                                        id="slotStatus"
-                                        type="slotStatus"
-                                        name="slotStatus"
-                                        className="form-control mr-3"
-                                        value={stateForm.slotStatus}
-                                    />
-                                </div>*/}
-                                <button
-                                    type="submit"
-                                    className="btn btn-block btn-outline-primary"
-                                >
-                                    Save
-                                </button>
-                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </>
     );
-}
+};
 
 export default ViewReservation;

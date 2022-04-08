@@ -124,27 +124,7 @@ class SlotController extends ApiController
      */
     public function update(Request $request, $id)
     {
-        // Get user from $request token.
-        // if (! $user = auth()->setRequest($request)->user()) {
-        //     return $this->responseUnauthorized();
-        // }
 
-        // Validates data.
-        // $validator = Validator::make($request->all(), [
-        //     'address' => 'string',
-        //     'slotID' => 'string',
-        //     'slotImage' => 'string',
-        //     'lat' => 'float',
-        //     'lng' => 'float',
-        //     'price' => 'double',
-        //     'rating' => 'integer',
-        //     'review' => 'string',
-        //     'slotStatus' => 'string',
-        // ]);
-
-        // if ($validator->fails()) {
-        //     return $this->responseUnprocessable($validator->errors());
-        // }
 
         try {
             $slot = Slot::where('slotID', $id)->firstOrFail();

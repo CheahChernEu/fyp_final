@@ -169,7 +169,6 @@ const AddSlot = () => {
         }
     };
 
-
     const deleteSlot = (e) => {
         const { key } = e.target.dataset;
         swal({
@@ -429,7 +428,7 @@ const AddSlot = () => {
                                         fontsize: "14px",
                                         border: "0",
                                         fontweight: "500",
-                                        cursor: "pointer"
+                                        cursor: "pointer",
                                     }}
                                 >
                                     Add

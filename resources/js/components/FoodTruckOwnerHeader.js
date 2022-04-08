@@ -56,7 +56,7 @@ const FoodTruckOwnerHeader = (props) => {
                                 <DropdownItem>Settings</DropdownItem>
                                 <DropdownItem divider />
                                 <DropdownItem onClick={handleLogout}>
-                                    <Link tag={Link} to="/login">
+                                    <Link tag={Link} to="/home">
                                         Log Out
                                     </Link>
                                 </DropdownItem>
