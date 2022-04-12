@@ -44,7 +44,7 @@ const Navbar = () => {
                                     type="button"
                                     className="btn btn-primary"
                                     style={{
-                                        width:"150px",
+                                        width:"12vw",
                                     }}
                                 >
                                     Join Us Now

@@ -203,7 +203,6 @@ const AddSlot = () => {
                     })
                     .catch((errorResponse) => {
                         console.log(errorResponse);
-                        console.log(errorResponse);
                         setError("There was an error processing.");
                         swal(
                             "Unable to Delete!",
@@ -482,9 +481,14 @@ const AddSlot = () => {
                                                             slot.user_id === id
                                                                 ? deleteSlot
                                                                 : () =>
-                                                                      console.log(
-                                                                          "No access to the slot created by other admin"
-                                                                      )
+                                                                    swal(
+                                                                        "Unable to Delete!",
+                                                                        "No access to the slot created by other admin",
+                                                                        { icon: "warning" }
+                                                                    ),
+                                                                    console.log(
+                                                                        "No access to the slot created by other admin"
+                                                                    )
                                                         }
                                                         data-key={slot.id}
                                                     >
