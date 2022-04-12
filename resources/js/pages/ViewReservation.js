@@ -237,7 +237,7 @@ const ViewReservation = () => {
                                                     );
                                                 }}
                                                 disabled={
-                                                    checkout.reservationStatus === "Confirmed" ? false : true
+                                                    checkout.reservationStatus === "Confirmed"
                                                 }
                                                 style={{
                                                     border: "1px solid #DCE0E6",
@@ -258,7 +258,7 @@ const ViewReservation = () => {
                                                     );
                                                 }}
                                                 disabled={
-                                                    checkout.reservationStatus === "Rejected" ? false : true
+                                                    checkout.reservationStatus === "Rejected"
                                                 }
                                                 style={{
                                                     border: "1px solid #DCE0E6",
