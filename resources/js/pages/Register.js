@@ -118,7 +118,7 @@ const Register = (props) => {
                                         >
                                             Registration successful.
                                             <br />
-                                            <Link to="/" href="/">
+                                            <Link to="/" href="/home">
                                                 Please log in with your new
                                                 email and password.
                                             </Link>

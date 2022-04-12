@@ -71,7 +71,7 @@ class CheckoutController extends ApiController
     public function show($id)
     {
         $checkout = Checkout::where('slotID', $id)->get();
-        $checkout = Checkout::where('user_id', $id)->get();
+
         return new CheckoutCollection($checkout);
 
     }
