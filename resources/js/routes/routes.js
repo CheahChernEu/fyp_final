@@ -25,6 +25,24 @@ const routes = [
         component: Homepage,
     },
     {
+        path: "/about",
+        exact: true,
+        auth: false,
+        component: Homepage,
+    },
+    {
+        path: "/service",
+        exact: true,
+        auth: false,
+        component: Homepage,
+    },
+    {
+        path: "/contact",
+        exact: true,
+        auth: false,
+        component: Homepage,
+    },
+    {
         path: "/home",
         exact: true,
         auth: false,
