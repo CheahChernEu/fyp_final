@@ -27,8 +27,8 @@ class CreateCheckoutTable extends Migration
             $table->string('paymentStatus');
             $table->string('paymentMethod');
             $table->string('paymentStatus');
-            $table->timestamps('startDate');
-            $table->timestamps('endDate');
+            $table->date('startDate');
+            $table->date('endDate');
 
         });
     }
