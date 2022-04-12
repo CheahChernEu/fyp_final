@@ -37,7 +37,10 @@ const SuperAdminHeader = (props) => {
                             <DropdownToggle nav caret>
                                 Account
                             </DropdownToggle>
-                            <DropdownMenu right>
+                            <DropdownMenu right
+                                style={{
+                                outline: "transparent",
+                            }}>
                                 <DropdownItem>Settings</DropdownItem>
                                 <DropdownItem divider />
                                 <DropdownItem onClick={handleLogout}>

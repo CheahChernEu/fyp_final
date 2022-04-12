@@ -59,7 +59,7 @@ class SlotController extends ApiController
         // Validate all the required parameters have been sent.
         $validator = Validator::make($request->all(), [
             'address' => 'required',
-            'slotID' => 'required',
+            'slotID' => 'required|unique:slots',
             'lat' => 'required',
             'lng' => 'required',
             'price' => 'required',
