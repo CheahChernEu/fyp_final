@@ -44,7 +44,9 @@ const SuperAdminHeader = (props) => {
                                 <DropdownItem>Settings</DropdownItem>
                                 <DropdownItem divider />
                                 <DropdownItem onClick={handleLogout}>
-                                    Log Out
+                                    <Link tag={Link} to="/home">
+                                        Log Out
+                                    </Link>
                                 </DropdownItem>
                             </DropdownMenu>
                         </UncontrolledDropdown>
