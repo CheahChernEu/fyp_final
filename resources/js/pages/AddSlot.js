@@ -278,6 +278,28 @@ const AddSlot = () => {
                                 onSubmit={handleSubmit(onSubmit)}
                             >
                                 <div className="form-group">
+                                    <label htmlFor="addSlot">Address</label>
+                                    <textarea
+                                        name="address"
+                                        id="address"
+                                        required
+                                        maxLength={1000}
+                                        minLength={10}
+                                        className="form-control mr-3"
+                                        placeholder="e.g. 4C, Jalan Ipoh"
+                                        onChange={handleChange}
+                                        value={stateForm.address}
+                                        ref={register()}
+                                        disabled
+                                    />
+
+                                    {errors.address && (
+                                        <span className="invalid-feedback">
+                                            This field is required.
+                                        </span>
+                                    )}
+                                </div>
+                                <div className="form-group">
                                     <label htmlFor="slotID">Slot ID</label>
                                     <input
                                         id="slotID"
@@ -295,27 +317,6 @@ const AddSlot = () => {
                                     {errors.slotID && (
                                         <span className="invalid-feedback">
                                             This field is required
-                                        </span>
-                                    )}
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="addSlot">Address</label>
-                                    <textarea
-                                        name="address"
-                                        id="address"
-                                        required
-                                        maxLength={1000}
-                                        minLength={10}
-                                        className="form-control mr-3"
-                                        placeholder="e.g. 4C, Jalan Ipoh"
-                                        onChange={handleChange}
-                                        value={stateForm.address}
-                                        ref={register()}
-                                    />
-
-                                    {errors.address && (
-                                        <span className="invalid-feedback">
-                                            This field is required.
                                         </span>
                                     )}
                                 </div>
@@ -535,7 +536,7 @@ function Locate({ panTo }) {
                 height: "36px",
                 background: "#556cd6",
                 color: "white",
-                width: "100%",
+                width: "120px",
                 fontsize: "14px",
                 border: "0",
                 borderRadius: "2px",
