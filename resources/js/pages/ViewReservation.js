@@ -93,7 +93,7 @@ const ViewReservation = () => {
         swal({
             ID: "Are you sure?",
             text: "The reservation will be approved and the slot will be not available to public!",
-            icon: "warning",
+            icon: "info",
             buttons: true,
             dangerMode: true,
         }).then((willUpdateApprove) => {
@@ -228,7 +228,7 @@ const ViewReservation = () => {
                                         </td>
 
                                         <td>
-                                            <span
+                                            <button
                                                 type="button"
                                                 className="badge badge-primary"
                                                 onClick={() => {
@@ -236,12 +236,20 @@ const ViewReservation = () => {
                                                         checkout
                                                     );
                                                 }}
+                                                disabled={
+                                                    checkout.reservationStatus === "Confirmed" ? false : true
+                                                }
+                                                style={{
+                                                    border: "1px solid #DCE0E6",
+                                                    borderRadius: "2px",
+                                                    outline: "transparent",
+                                                }}
                                             >
                                                 Approve
-                                            </span>
+                                            </button>
                                         </td>
                                         <td>
-                                            <span
+                                            <button
                                                 type="button"
                                                 className="badge badge-secondary"
                                                 onClick={() => {
@@ -249,9 +257,17 @@ const ViewReservation = () => {
                                                         checkout
                                                     );
                                                 }}
+                                                disabled={
+                                                    checkout.reservationStatus === "Rejected" ? false : true
+                                                }
+                                                style={{
+                                                    border: "1px solid #DCE0E6",
+                                                    borderRadius: "2px",
+                                                    outline: "transparent",
+                                                }}
                                             >
                                                 Reject
-                                            </span>
+                                            </button>
                                         </td>
                                     </tr>
                                 ))

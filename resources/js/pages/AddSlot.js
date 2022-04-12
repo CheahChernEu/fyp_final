@@ -52,6 +52,7 @@ const AddSlot = () => {
     const { register, handleSubmit, watch, errors } = useForm();
     const [dataState, setData] = useState([]);
     const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
     const [stateForm, setStateForm] = useState({
         address: "",
         slotID: "",
@@ -355,7 +356,7 @@ const AddSlot = () => {
                                         ref={register()}
                                         required
                                     />
-                                    {errors.price && (
+                                    {errors.slotImage && (
                                         <span className="invalid-feedback">
                                             This field is required.
                                         </span>
@@ -445,6 +446,11 @@ const AddSlot = () => {
                             <h1 className="text-center mb-4">
                                 List of Food Truck Slots
                             </h1>
+                            {errorMessage &&(
+                                <div className="alert alert-warning" role="alert">
+                                    {errorMessage}
+                                </div>
+                            )}
                             <table className="table table-striped">
                                 <tbody>
                                     <tr>
@@ -474,26 +480,29 @@ const AddSlot = () => {
                                                 </td>
                                                 <td>{slot.slotStatus}</td>
                                                 <td>
-                                                    <span
+                                                    <button
                                                         type="button"
                                                         className="badge badge-danger"
+                                                        style={{
+                                                            border: "1px solid #DCE0E6",
+                                                            borderRadius: "2px",
+                                                            outline: "transparent",
+                                                        }}
                                                         onClick={
                                                             slot.user_id === id
                                                                 ? deleteSlot
-                                                                : () =>
-                                                                    swal(
-                                                                        "Unable to Delete!",
-                                                                        "No access to the slot created by other admin",
-                                                                        { icon: "warning" }
-                                                                    ),
+                                                                : () => {
+                                                                    setErrorMessage("No access to the slot created by other admin");
                                                                     console.log(
                                                                         "No access to the slot created by other admin"
                                                                     )
+                                                                }
                                                         }
+
                                                         data-key={slot.id}
                                                     >
                                                         Delete
-                                                    </span>
+                                                    </button>
                                                 </td>
                                             </tr>
                                         ))}
