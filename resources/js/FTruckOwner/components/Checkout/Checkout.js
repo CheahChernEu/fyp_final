@@ -17,6 +17,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import Moment from "moment";
 import { setDate } from "date-fns";
+import { SettingsSystemDaydreamTwoTone } from "@material-ui/icons";
 
 const Checkout = ({ places, index }) => {
     const [open, setOpen] = React.useState(false);
@@ -30,20 +31,6 @@ const Checkout = ({ places, index }) => {
     const slotApi = "/api/v1/slot";
 
     let history = useHistory();
-
-    useEffect(() => {
-        console.log("End Date");
-        console.log(endDate);
-        setEndDate(endDate);
-        console.log(endDate);
-    }, [endDate]);
-
-    useEffect(() => {
-        console.log("Start Date");
-        console.log(startDate);
-        setStartDate(startDate);
-        console.log(startDate);
-    }, [startDate]);
 
     const handleClickOpen = (index, places) => {
         setOpen(true);
@@ -70,15 +57,11 @@ const Checkout = ({ places, index }) => {
         return totalCost;
     };
 
-    const setDate = (startDate, endDate) => {
-        setStartDate(startDate);
-        setEndDate(endDate);
-    };
-
     const onToken = (token) => {
         console.log(token);
         console.log("Start Date");
-
+        console.log(startDate);
+        console.log(endDate);
         console.log(Moment(startDate).format("DD-MM-YYYY"));
         console.log(Moment(endDate).format("DD-MM-YYYY"));
         console.log("End Date");
@@ -109,9 +92,9 @@ const Checkout = ({ places, index }) => {
                         .catch(() => {
                             console.log("failed to update");
                         });
-                    setStartDate(new Date());
-                    setEndDate(new Date());
-                    setSlotObj({});
+                    // setStartDate(new Date());
+                    // setEndDate(new Date());
+                    // setSlotObj({});
                 })
                 .catch(() => {
                     console.log("failed to save data into database");
@@ -225,7 +208,6 @@ const Checkout = ({ places, index }) => {
                             stripeKey="pk_test_51KjCibLroMhKOKfoup1NmOhShBZdK3rPR3cVU2AwjAjmoogcqN0MAvXfhUk4gJJy4vjz8iEN4F331tCI8v1DeMQA00t418FV4i"
                             name={"F_Truck Officials Sdn Bhd"}
                             currency="MYR"
-                            onChange={setDate(startDate, endDate)}
                             amount={
                                 total_rents(
                                     slotObj.price,
