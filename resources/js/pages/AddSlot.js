@@ -463,7 +463,7 @@ const AddSlot = () => {
                                         <th>Delete</th>
                                     </tr>
 
-                                    {dataState.length > 0 &&
+                                    {dataState.length > 0 ? (
                                         dataState.map((slot) => (
                                             <tr key={slot.id}>
                                                 <td>{slot.slotID}</td>
@@ -506,7 +506,12 @@ const AddSlot = () => {
                                                     </button>
                                                 </td>
                                             </tr>
-                                        ))}
+                                        )) 
+                                        ) : (
+                                            <h2 style={{ margin: "auto" }}>
+                                                No slot is added yet!
+                                            </h2>
+                                        )}
                                 </tbody>
                             </table>
                         </div>
