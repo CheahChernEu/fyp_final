@@ -31,6 +31,8 @@ const Checkout = ({ places, index }) => {
     const slotApi = "/api/v1/slot";
 
     let history = useHistory();
+    var startdate;
+    var enddate;
 
     const handleClickOpen = (index, places) => {
         setOpen(true);
@@ -46,6 +48,8 @@ const Checkout = ({ places, index }) => {
         if (endDate >= startDate) {
             const diffInMs = Math.abs(startDate - endDate);
             const days = Math.round(diffInMs / (1000 * 60 * 60 * 24));
+            startdate = startDate;
+            enddate = endDate;
             return days;
         } else {
             return 0;
@@ -58,12 +62,20 @@ const Checkout = ({ places, index }) => {
     };
 
     const onToken = (token) => {
-        console.log(token);
-        console.log("Start Date");
-        console.log(startDate);
-        console.log(endDate);
-        console.log(Moment(startDate).format("DD-MM-YYYY"));
-        console.log(Moment(endDate).format("DD-MM-YYYY"));
+        var StartDate =
+            startdate.day +
+            "-" +
+            startdate.months[startdate.monthIndex].number +
+            "-" +
+            startdate.year;
+
+        var EndDate =
+            enddate.day +
+            "-" +
+            enddate.months[enddate.monthIndex].number +
+            "-" +
+            enddate.year;
+
         console.log("End Date");
         const checkout = {
             user_id: session.id,
@@ -73,8 +85,8 @@ const Checkout = ({ places, index }) => {
             reservationStatus: "Pending",
             paymentStatus: "Successful",
             paymentMethod: token.type,
-            startDate: Moment(startDate).format("DD-MM-YYYY"),
-            endDate: Moment(endDate).format("DD-MM-YYYY"),
+            startDate: StartDate,
+            endDate: EndDate,
         };
 
         const slot = {
@@ -92,9 +104,6 @@ const Checkout = ({ places, index }) => {
                         .catch(() => {
                             console.log("failed to update");
                         });
-                    // setStartDate(new Date());
-                    // setEndDate(new Date());
-                    // setSlotObj({});
                 })
                 .catch(() => {
                     console.log("failed to save data into database");
