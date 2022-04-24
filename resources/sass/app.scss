@@ -137,3 +137,21 @@ header {
 .table th, .table td {
     text-align: center !important;
 }
+
+@media (min-width: 600px){
+    .makeStyles-search-30 {
+        margin-left: 0px !important;
+    }
+}
+
+.makeStyles-inputRoot-32 {
+    border-style: ridge !important;
+    border-radius: inherit !important;
+    width: 100% !important;
+}
+
+@media (min-width: 960px){
+    .makeStyles-inputInput-33 {
+        width: 100% !important;
+    }
+}

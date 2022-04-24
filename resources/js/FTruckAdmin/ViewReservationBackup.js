@@ -22,7 +22,8 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ListItem from '@mui/material/ListItem';
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -101,7 +102,6 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
   }),
 );
-
 
 const ViewReservation = () => {
     const api = "/api/v1/checkout";
@@ -308,22 +308,6 @@ const ViewReservation = () => {
     //     });
     // };
 
-    const useStyles = makeStyles((theme) => ({
-        root: {
-            display: "flex",
-        },
-
-        content: {
-            flexGrow: 1,
-            padding: theme.spacing(12),
-        },
-        container: {
-            maxHeight: 650,
-        },
-    }));
-    
-    const classes = useStyles();
-
     const columns = [
         {   id: "slotID", 
             label: "Slot ID", 
@@ -365,21 +349,7 @@ const ViewReservation = () => {
             minWidth: 120,
             align: "center",
         },
-        {
-            id: "approve",
-            label: "Approve",
-            minWidth: 120,
-            align: "center",
-        },
-        {
-            id: "reject",
-            label: "Reject",
-            minWidth: 120,
-            align: "center",
-        },
     ];
-
-    const rows = dataState;
 
     return (
         <>
@@ -498,95 +468,94 @@ const ViewReservation = () => {
                     </List>
                 </Drawer>
                 <Box component="main" sx={{ flexGrow: 1, p: 3 }} style={{marginTop: "50px"}}>
-                <main className={classes.content}>
-                    <div className="col">
+                    <div className="container py-5">
                         <div className="todos">
                             <h1 className="text-center mb-4">
-                                List of Reservation
+                                List of Reservations
                             </h1>
-                            <Paper className={classes.root}>
-                                <TableContainer className={classes.container}>
-                                    <Table
-                                        stickyHeader
-                                        aria-label="sticky table"
-                                    >
-                                        <TableHead>
-                                            <TableRow>
-                                                {columns.map((column) => (
-                                                    <TableCell
-                                                        key={column.id}
-                                                        align={column.align}
+                            <table className="table table-striped" style={{minHeight:"200px"}}>
+                                <tbody>
+                                    <tr>
+                                        <th>Slot No</th>
+                                        <th>Address</th>
+                                        <th>Price</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                        <th>Payment Status</th>
+                                        <th>Reservation Status</th>
+                                        <th>Approve</th>
+                                        <th>Reject</th>
+                                    </tr>
+                                    {dataState.length > 0 ? (
+                                        dataState.map((checkout) => (
+                                            <tr key={checkout.id}>
+                                                <td>{checkout.slotID}</td>
+                                                <td>
+                                                    {checkout.address
+                                                        .slice(0, 30)
+                                                        .concat("...")}
+                                                </td>
+                                                <td>{checkout.price}</td>
+                                                <td>{checkout.startDate}</td>
+                                                <td>{checkout.endDate}</td>
+                                                <td>
+                                                    {checkout.paymentStatus}
+                                                </td>
+                                                <td>
+                                                    {checkout.reservationStatus}
+                                                </td>
+
+                                                <td>
+                                                    <button
+                                                        onClick={() => {
+                                                            approveStatusUpdate(
+                                                                checkout
+                                                            );
+                                                        }}
+                                                        disabled={
+                                                            checkout.reservationStatus === "Confirmed"
+                                                        }
                                                         style={{
-                                                            minWidth:
-                                                                column.minWidth,
+                                                            border: "none",
+                                                            borderRadius: "0px",
+                                                            outline: "transparent",
+                                                            background: "transparent",
                                                         }}
                                                     >
-                                                        {column.label}
-                                                    </TableCell>
-                                                ))}
-                                            </TableRow>
-                                        </TableHead>
-                                        <TableBody>
-                                            {rows
-                                                .slice(
-                                                    page * rowsPerPage,
-                                                    page * rowsPerPage +
-                                                        rowsPerPage
-                                                )
-                                                .map((row) => {
-                                                    return (
-                                                        <TableRow
-                                                            hover
-                                                            role="checkbox"
-                                                            tabIndex={-1}
-                                                            key={row.id}
-                                                        >
-                                                            {columns.map(
-                                                                (column) => {
-                                                                    const value =
-                                                                        row[
-                                                                            column
-                                                                                .id
-                                                                        ];
-                                                                    return (
-                                                                        <TableCell
-                                                                            key={
-                                                                                column.id
-                                                                            }
-                                                                            align={
-                                                                                column.align
-                                                                            }
-                                                                        >
-                                                                            {column.format
-                                                                                ? column.format(
-                                                                                      value
-                                                                                  )
-                                                                                : value}
-                                                                        </TableCell>
-                                                                    );
-                                                                }
-                                                            )}
-                                                        </TableRow>
-                                                    );
-                                                })}
-                                        </TableBody>
-                                    </Table>
-                                    <TablePagination
-                                        rowsPerPageOptions={[10, 25, 100]}
-                                        component="div"
-                                        count={rows.length}
-                                        rowsPerPage={rowsPerPage}
-                                        page={page}
-                                        onPageChange={handleChangePage}
-                                        onRowsPerPageChange={
-                                            handleChangeRowsPerPage
-                                        }
-                                    />
-                                </TableContainer>
-                            </Paper>
+                                                        <ThumbUpIcon />
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <button
+                                                        onClick={() => {
+                                                            rejectStatusUpdate(
+                                                                checkout
+                                                            );
+                                                        }}
+                                                        disabled={
+                                                            checkout.reservationStatus === "Rejected"
+                                                        }
+                                                        style={{
+                                                            border: "none",
+                                                            borderRadius: "0px",
+                                                            outline: "transparent",
+                                                            background: "transparent",
+                                                        }}
+                                                    >
+                                                        <ThumbDownIcon />
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        ))
+                                    ) : (
+                                        <h3 style={{ margin: "auto" }}>
+                                            No reservation is made yet!
+                                        </h3>
+                                    )}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                </main>
                 </Box>
             </Box>
         </>

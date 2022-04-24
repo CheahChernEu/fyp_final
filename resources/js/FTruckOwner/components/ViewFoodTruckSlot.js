@@ -108,6 +108,7 @@ import List from "../../FTruckOwner/components/MapComponents/List/List";
 import Map from "../../FTruckOwner/components/MapComponents/Map/Map";
 import OwnerHeader from "../../components/FoodTruckOwnerHeader";
 import Http from "../../Http";
+import "../../../sass/app.scss";
 
 const drawerWidth = 240;
 
