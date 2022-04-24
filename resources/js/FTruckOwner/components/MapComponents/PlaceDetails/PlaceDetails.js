@@ -26,30 +26,39 @@ const PlaceDetails = ({ place, selected, refProp, index, places }) => {
         <Card elevation={6}>
             <CardMedia style={{ height: 350 }} image={place.slotImage} />
             <CardContent>
-                <Box display="flex" justifyContent="space-between">
-                    <Typography component="legend">Price (in RM)</Typography>
-                    <Typography gutterBottom variant="subtitle1">
-                        {place.price}
-                    </Typography>
-                </Box>
+                {/* <Box display="flex" justifyContent="space-between"> */}
+                <Typography component="legend">
+                    Price (in RM): {place.price}/day
+                </Typography>
+                {/* <Typography gutterBottom variant="subtitle1">
 
+                </Typography> */}
+                {/* </Box> */}
+
+                {place.address && (
+                    <Typography
+                        // gutterBottom
+                        // variant="body2"
+                        // color="textSecondary"
+                        component="legend"
+                        className={classes.subtitle}
+                    >
+                        <LocationOnIcon />
+                        {/* <Box display="flex" justifyContent="space-between"> */}
+                        {place.address}
+                        {/* </Box> */}
+                    </Typography>
+                )}
                 {place.slotStatus && (
                     <Chip
                         size="small"
                         label={place.slotStatus}
-                        className={classes.chip}
+                        className={
+                            place.slotStatus != "Available"
+                                ? classes.chipRed
+                                : classes.chipBlue
+                        }
                     />
-                )}
-                {place.address && (
-                    <Typography
-                        gutterBottom
-                        variant="body2"
-                        color="textSecondary"
-                        className={classes.subtitle}
-                    >
-                        <LocationOnIcon />
-                        {place.address}
-                    </Typography>
                 )}
             </CardContent>
             <CardActions>

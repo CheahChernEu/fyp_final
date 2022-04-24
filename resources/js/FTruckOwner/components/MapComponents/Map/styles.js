@@ -29,6 +29,7 @@ export default makeStyles((theme) => ({
         "&:hover": { backgroundColor: alpha(theme.palette.common.white, 0.25) },
         marginRight: theme.spacing(0),
         marginLeft: "100%",
+        marginBottom: theme.spacing(1),
         width: "100%",
         [theme.breakpoints.up("sm")]: {
             marginLeft: theme.spacing(3),
@@ -46,6 +47,7 @@ export default makeStyles((theme) => ({
     },
     inputRoot: {
         color: "inherit",
+        borderStyle: "solid",
     },
     inputInput: {
         padding: theme.spacing(1, 1, 1, 0),
