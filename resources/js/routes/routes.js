@@ -4,11 +4,14 @@ import Register from "../pages/Register";
 import ForgotPassword from "../pages/ForgotPassword";
 import ResetPassword from "../pages/ResetPassword";
 import NoMatch from "../pages/NoMatch";
-import AdminDashboard from "../pages/AdminDashboard";
-import AddSlot from "../pages/AddSlot";
-import ViewReservation from "../pages/ViewReservation";
 import Homepage from "../Homepage/Homepage";
 import Add_Staff from "../pages/AddStaff";
+
+//Admin
+import AdminDashboard from "../FTruckAdmin/AdminDashboard";
+import AddSlot from "../FTruckAdmin/AddSlot";
+import ViewReservation from "../FTruckAdmin/ViewReservation";
+
 //Owner
 import OwnerDashboard from "../FTruckOwner/components/OwnerDashboard";
 import ReservationStatus from "../FTruckOwner/components/Reservation";

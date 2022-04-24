@@ -10081,3 +10081,20 @@ header {
 .section-login .password-reset-link {
   font-size: 0.9rem;
 }
+
+.css-8vnh0h-MuiPaper-root-MuiAlert-root {
+  font-size: 14px !important;
+}
+
+.css-ptiqhd-MuiSvgIcon-root {
+  width: 14px !important;
+  height: 14px !important;
+}
+
+.css-1e0d89p-MuiButtonBase-root-MuiIconButton-root {
+  align-self: center !important;
+}
+
+.table th, .table td {
+  text-align: center !important;
+}
