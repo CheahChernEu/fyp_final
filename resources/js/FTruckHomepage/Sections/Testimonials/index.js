@@ -87,7 +87,7 @@ const Testimonials = () => {
           <Card
             text="Hi, I am the project manager of F_Truck."
             name="Eric Lee"
-            image="avatar-1"
+            image="avatar-4"
           />
 
           <Card

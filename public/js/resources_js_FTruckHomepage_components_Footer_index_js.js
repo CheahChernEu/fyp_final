@@ -34,7 +34,7 @@ var LeftText = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_te
 var Footer = function Footer() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(FOOTER, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(LeftText, {
-      children: ["\xA9 2021 Built and Design by", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", {
+      children: ["\xA9 2022 Built and Design by", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", {
         href: "#",
         children: "@F_Truck"
       })]

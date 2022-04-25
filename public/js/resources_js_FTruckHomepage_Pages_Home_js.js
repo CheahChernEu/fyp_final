@@ -209,7 +209,7 @@ var Contact = function Contact() {
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
           name: "email",
           type: "email",
-          placeholder: "enter working email id"
+          placeholder: "your working email"
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("textarea", {
         name: "",
@@ -667,7 +667,7 @@ var Testimonials = function Testimonials() {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(Card, {
           text: "Hi, I am the project manager of F_Truck.",
           name: "Eric Lee",
-          image: "avatar-1"
+          image: "avatar-4"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(Card, {
           text: "Hi, I am the senior software engineer of F_Truck.",
           name: "Tennis Cheah",
@@ -1248,51 +1248,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/vendor/slick-carousel/slick/ajax-loader.gif?fb6f3c230cb846e25247dfaa1da94d8f");
-
-/***/ }),
-
-/***/ "./resources/js/FTruckHomepage/assets/3dcapsule.png":
-/*!**********************************************************!*\
-  !*** ./resources/js/FTruckHomepage/assets/3dcapsule.png ***!
-  \**********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/3dcapsule.png?b06cad0fcb2660765ed14f51483df39a");
-
-/***/ }),
-
-/***/ "./resources/js/FTruckHomepage/assets/3dtriangle.png":
-/*!***********************************************************!*\
-  !*** ./resources/js/FTruckHomepage/assets/3dtriangle.png ***!
-  \***********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/3dtriangle.png?f978961289bfe60ba064d1472741193b");
-
-/***/ }),
-
-/***/ "./resources/js/FTruckHomepage/assets/3dtube.png":
-/*!*******************************************************!*\
-  !*** ./resources/js/FTruckHomepage/assets/3dtube.png ***!
-  \*******************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/3dtube.png?0daa393047fef0ab50a909b7cf598e09");
 
 /***/ }),
 
@@ -14881,9 +14836,6 @@ var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMP
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 var map = {
-	"./3dcapsule.png": "./resources/js/FTruckHomepage/assets/3dcapsule.png",
-	"./3dtriangle.png": "./resources/js/FTruckHomepage/assets/3dtriangle.png",
-	"./3dtube.png": "./resources/js/FTruckHomepage/assets/3dtube.png",
 	"./Arrow Right.svg": "./resources/js/FTruckHomepage/assets/Arrow Right.svg",
 	"./Design.svg": "./resources/js/FTruckHomepage/assets/Design.svg",
 	"./Develope.svg": "./resources/js/FTruckHomepage/assets/Develope.svg",
