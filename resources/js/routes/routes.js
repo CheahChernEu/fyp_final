@@ -6,6 +6,7 @@ import ResetPassword from "../pages/ResetPassword";
 import NoMatch from "../pages/NoMatch";
 import Homepage from "../Homepage/Homepage";
 import Add_Staff from "../pages/AddStaff";
+import App from "../FTruckHomepage/App"
 
 //Admin
 import AdminDashboard from "../FTruckAdmin/AdminDashboard";
@@ -25,7 +26,7 @@ const routes = [
         path: "/",
         exact: true,
         auth: false,
-        component: Homepage,
+        component: App,
     },
     {
         path: "/about",
