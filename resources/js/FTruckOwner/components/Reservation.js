@@ -97,7 +97,7 @@
 import React, { useState, useEffect } from "react";
 import OwnerHeader from "../../components/FoodTruckOwnerHeader";
 import Http from "../../Http";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";

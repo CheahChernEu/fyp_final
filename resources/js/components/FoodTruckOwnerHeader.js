@@ -94,6 +94,10 @@ const useStyles = makeStyles((theme) => ({
         // necessary for content to be below app bar
         ...theme.mixins.toolbar,
     },
+    listItem: {
+        padding: theme.spacing(3),
+        marginBottom: theme.spacing(2),
+    },
 }));
 
 const FoodTruckOwnerHeader = (props) => {
@@ -202,6 +206,7 @@ const FoodTruckOwnerHeader = (props) => {
                     className={clsx(classes.appBar, {
                         [classes.appBarShift]: open,
                     })}
+                    style={{ background: "#35353f" }}
                 >
                     <Toolbar>
                         <IconButton
@@ -250,40 +255,56 @@ const FoodTruckOwnerHeader = (props) => {
                                 )}
                             </IconButton>
                         </div>
-                        <Divider />
+
                         <Listing>
-                            <ListItem button onClick={handleHome}>
+                            <ListItem
+                                disablePadding
+                                button
+                                className={classes.listItem}
+                                onClick={handleHome}
+                            >
                                 <ListItemIcon>
                                     <HomeIcon />
                                 </ListItemIcon>
 
                                 <ListItemText primary={"Home"} />
                             </ListItem>
-                            <Divider />
-                            <ListItem button onClick={handleViewing}>
+                            <ListItem
+                                disablePadding
+                                button
+                                className={classes.listItem}
+                                onClick={handleViewing}
+                            >
                                 <ListItemIcon>
                                     <MapIcon />
                                 </ListItemIcon>
 
                                 <ListItemText primary={"Slot Reservation"} />
                             </ListItem>
-                            <Divider />
-                            <ListItem button onClick={handleStatus}>
+                            <ListItem
+                                disablePadding
+                                button
+                                className={classes.listItem}
+                                onClick={handleStatus}
+                            >
                                 <ListItemIcon>
                                     <ViewListIcon />
                                 </ListItemIcon>
 
                                 <ListItemText primary={"Reservation Lists"} />
                             </ListItem>
-                            <Divider />
-                            <ListItem button onClick={handleLogout}>
+                            <ListItem
+                                disablePadding
+                                button
+                                className={classes.listItem}
+                                onClick={handleLogout}
+                            >
                                 <ListItemIcon>
                                     <ExitToAppIcon />
                                 </ListItemIcon>
 
                                 <ListItemText primary={"Log Out"} />
                             </ListItem>
-                            <Divider />)
                         </Listing>
                     </Drawer>
                 )}

@@ -41,11 +41,11 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 
 
-var Headers = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].header(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 1rem 5rem;\n  background-color: var(--nav);\n  color: var(--white);\n  position: relative;\n  z-index: 500;\n  height: 64px;\n  @media only Screen and (max-width: 64em) {\n    padding: 0.5rem 3rem;\n  }\n  @media only Screen and (max-width: 40em) {\n    padding: 0.5rem 1.5rem;\n  }\n"])));
-var Logo = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].a(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n  display: flex;\n  align-items: center;\n  width: 2rem;\n  height: auto;\n  cursor: pointer;\n  img {\n    margin-right: 0.5rem;\n  }\n"])));
-var Nav = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].nav(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n  width: 25rem;\n  max-width: 40rem;\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  transition: all 0.3s;\n  @media only Screen and (max-width: 48em) {\n    display: none;\n  }\n  a {\n    font-weight: 600;\n    line-height: 1.5;\n    color: var(--white);\n    &::after {\n      content: \"\";\n      display: block;\n      height: 3px;\n      width: 0;\n      background: transparent;\n      transition: width 0.5s;\n    }\n    &:not(:last-child):hover::after {\n      width: 100%;\n      background: var(--purple);\n    }\n    /* &:not(:last-child) {\n      margin-right: 2rem;\n    } */\n    /* @media only Screen and (max-width: 48em) {\n      &:not(:last-child) {\n        margin-right: 1rem;\n      }\n    } */\n  }\n"])));
-var Button = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].button(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n  background-color: var(--purple);\n  padding: 0.5rem 1rem;\n  border-radius: 20px;\n  color: var(--white);\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s;\n  &:hover {\n    transform: scale(1.1);\n  }\n  &:focus {\n    transform: scale(0.9);\n  }\n  @media only Screen and (max-width: 40em) {\n    font-size: 1.2rem;\n    &:hover {\n      transform: none;\n    }\n    &:focus {\n      transform: none;\n    }\n  }\n"])));
-var HamburgerBtn = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].button(_templateObject5 || (_templateObject5 = _taggedTemplateLiteral(["\n  display: none;\n  @media only Screen and (max-width: 48em) {\n    display: inline-block;\n  }\n  position: relative;\n  background-color: transparent;\n  width: 2rem;\n  height: 2px;\n  margin-top: 0rem;\n  transition: all 0.3s;\n  cursor: pointer;\n  &::before,\n  &::after {\n    content: \"\";\n    background-color: var(--white);\n    width: 2rem;\n    height: 2px;\n    display: inline-block;\n    position: absolute;\n    left: 0;\n    cursor: pointer;\n\n    transition: all 0.3s;\n  }\n  &::before {\n    top: ", ";\n    transform: ", ";\n  }\n  &::after {\n    top: ", ";\n    transform: ", ";\n  }\n"])), function (props) {
+var Headers = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].header(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n    padding: 1rem 5rem;\n    background-color: var(--nav);\n    color: var(--white);\n    position: relative;\n    z-index: 500;\n    height: 64px;\n    @media only Screen and (max-width: 64em) {\n        padding: 0.5rem 3rem;\n    }\n    @media only Screen and (max-width: 40em) {\n        padding: 0.5rem 1.5rem;\n    }\n"])));
+var Logo = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].a(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    display: flex;\n    align-items: center;\n    width: 2rem;\n    height: auto;\n    cursor: pointer;\n    img {\n        margin-right: 0.5rem;\n    }\n"])));
+var Nav = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].nav(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    width: 25rem;\n    max-width: 40rem;\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    transition: all 0.3s;\n    @media only Screen and (max-width: 48em) {\n        display: none;\n    }\n    a {\n        font-weight: 600;\n        line-height: 1.5;\n        color: var(--white);\n        &::after {\n            content: \"\";\n            display: block;\n            height: 3px;\n            width: 0;\n            background: transparent;\n            transition: width 0.5s;\n        }\n        &:not(:last-child):hover::after {\n            width: 100%;\n            background: var(--purple);\n        }\n        /* &:not(:last-child) {\n      margin-right: 2rem;\n    } */\n        /* @media only Screen and (max-width: 48em) {\n      &:not(:last-child) {\n        margin-right: 1rem;\n      }\n    } */\n    }\n"])));
+var Button = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].button(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    background-color: var(--purple);\n    padding: 0.5rem 1rem;\n    border-radius: 20px;\n    color: var(--white);\n    font-weight: 600;\n    cursor: pointer;\n    transition: all 0.2s;\n    &:hover {\n        transform: scale(1.1);\n    }\n    &:focus {\n        transform: scale(0.9);\n    }\n    @media only Screen and (max-width: 40em) {\n        font-size: 1.2rem;\n        &:hover {\n            transform: none;\n        }\n        &:focus {\n            transform: none;\n        }\n    }\n"])));
+var HamburgerBtn = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].button(_templateObject5 || (_templateObject5 = _taggedTemplateLiteral(["\n    display: none;\n    @media only Screen and (max-width: 48em) {\n        display: inline-block;\n    }\n    position: relative;\n    background-color: transparent;\n    width: 2rem;\n    height: 2px;\n    margin-top: 0rem;\n    transition: all 0.3s;\n    cursor: pointer;\n    &::before,\n    &::after {\n        content: \"\";\n        background-color: var(--white);\n        width: 2rem;\n        height: 2px;\n        display: inline-block;\n        position: absolute;\n        left: 0;\n        cursor: pointer;\n\n        transition: all 0.3s;\n    }\n    &::before {\n        top: ", ";\n        transform: ", ";\n    }\n    &::after {\n        top: ", ";\n        transform: ", ";\n    }\n"])), function (props) {
   return props.clicked ? "0" : "-0.5rem";
 }, function (props) {
   return props.clicked ? "rotate(135deg)" : "rotate(0)";
@@ -54,7 +54,7 @@ var HamburgerBtn = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].but
 }, function (props) {
   return props.clicked ? "rotate(-135deg)" : "rotate(0)";
 });
-var MobileMenu = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].nav(_templateObject6 || (_templateObject6 = _taggedTemplateLiteral(["\n  display: none;\n  @media only Screen and (max-width: 48em) {\n    display: flex;\n  }\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 2rem 0;\n  overflow-x: hidden;\n  position: absolute;\n  top: 100%;\n  left: 0;\n  right: 0;\n  opacity: ", ";\n  visibility: ", ";\n  transition: all 0.5s;\n  z-index: -10;\n  background-color: rgb(53 53 63 / 95%);\n  border-radius: 20px;\n  margin: 0.5rem;\n  a {\n    color: var(--white);\n    font-weight: 600;\n    font-size: 1.5rem;\n    margin: 1.5rem;\n    cursor: pointer;\n  }\n"])), function (props) {
+var MobileMenu = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].nav(_templateObject6 || (_templateObject6 = _taggedTemplateLiteral(["\n    display: none;\n    @media only Screen and (max-width: 48em) {\n        display: flex;\n    }\n    flex-direction: column;\n    align-items: center;\n    justify-content: center;\n    padding: 2rem 0;\n    overflow-x: hidden;\n    position: absolute;\n    top: 100%;\n    left: 0;\n    right: 0;\n    opacity: ", ";\n    visibility: ", ";\n    transition: all 0.5s;\n    z-index: -10;\n    background-color: rgb(53 53 63 / 95%);\n    border-radius: 20px;\n    margin: 0.5rem;\n    a {\n        color: var(--white);\n        font-weight: 600;\n        font-size: 1.5rem;\n        margin: 1.5rem;\n        cursor: pointer;\n    }\n"])), function (props) {
   return props.clicked ? "1" : 0;
 }, function (props) {
   return props.clicked ? "visible" : "hidden";
@@ -131,7 +131,8 @@ var Header = function Header() {
     ref: ref,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(Logo, {
       style: {
-        textDecoration: "none"
+        color: "white",
+        fontWeight: "bold"
       },
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", {
         children: "F_Truck"
@@ -228,20 +229,6 @@ var Header = function Header() {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Header);
-
-/***/ }),
-
-/***/ "./resources/js/assets/f-truck-logo.svg":
-/*!**********************************************!*\
-  !*** ./resources/js/assets/f-truck-logo.svg ***!
-  \**********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/f-truck-logo.svg?283cbb159acb7a33f5ca9e1fa4ca1cc4");
 
 /***/ }),
 

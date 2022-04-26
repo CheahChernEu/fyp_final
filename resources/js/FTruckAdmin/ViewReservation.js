@@ -34,73 +34,74 @@ import TableRow from "@material-ui/core/TableRow";
 import { Link } from "react-router-dom";
 import Http from "../Http";
 import swal from "sweetalert";
+import AdminHeader from "../../js/components/AdminHeader";
 
-const drawerWidth = 240;
+// const drawerWidth = 240;
 
-const openedMixin = (theme) => ({
-    width: drawerWidth,
-    transition: theme.transitions.create("width", {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-    }),
-    overflowX: "hidden",
-});
+// const openedMixin = (theme) => ({
+//     width: drawerWidth,
+//     transition: theme.transitions.create("width", {
+//         easing: theme.transitions.easing.sharp,
+//         duration: theme.transitions.duration.enteringScreen,
+//     }),
+//     overflowX: "hidden",
+// });
 
-const closedMixin = (theme) => ({
-    transition: theme.transitions.create("width", {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-    }),
-    overflowX: "hidden",
-    width: `calc(${theme.spacing(7)} + 1px)`,
-    [theme.breakpoints.up("sm")]: {
-        width: `calc(${theme.spacing(8)} + 1px)`,
-    },
-});
+// const closedMixin = (theme) => ({
+//     transition: theme.transitions.create("width", {
+//         easing: theme.transitions.easing.sharp,
+//         duration: theme.transitions.duration.leavingScreen,
+//     }),
+//     overflowX: "hidden",
+//     width: `calc(${theme.spacing(7)} + 1px)`,
+//     [theme.breakpoints.up("sm")]: {
+//         width: `calc(${theme.spacing(8)} + 1px)`,
+//     },
+// });
 
-const DrawerHeader = styled("div")(({ theme }) => ({
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "flex-end",
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-}));
+// const DrawerHeader = styled("div")(({ theme }) => ({
+//     display: "flex",
+//     alignItems: "center",
+//     justifyContent: "flex-end",
+//     padding: theme.spacing(0, 1),
+//     // necessary for content to be below app bar
+//     ...theme.mixins.toolbar,
+// }));
 
-const AppBar = styled(MuiAppBar, {
-    shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(["width", "margin"], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-    }),
-    ...(open && {
-        marginLeft: drawerWidth,
-        width: `calc(100% - ${drawerWidth}px)`,
-        transition: theme.transitions.create(["width", "margin"], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    }),
-}));
+// const AppBar = styled(MuiAppBar, {
+//     shouldForwardProp: (prop) => prop !== "open",
+// })(({ theme, open }) => ({
+//     zIndex: theme.zIndex.drawer + 1,
+//     transition: theme.transitions.create(["width", "margin"], {
+//         easing: theme.transitions.easing.sharp,
+//         duration: theme.transitions.duration.leavingScreen,
+//     }),
+//     ...(open && {
+//         marginLeft: drawerWidth,
+//         width: `calc(100% - ${drawerWidth}px)`,
+//         transition: theme.transitions.create(["width", "margin"], {
+//             easing: theme.transitions.easing.sharp,
+//             duration: theme.transitions.duration.enteringScreen,
+//         }),
+//     }),
+// }));
 
-const Drawer = styled(MuiDrawer, {
-    shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
-    width: drawerWidth,
-    flexShrink: 0,
-    whiteSpace: "nowrap",
-    boxSizing: "border-box",
-    ...(open && {
-        ...openedMixin(theme),
-        "& .MuiDrawer-paper": openedMixin(theme),
-    }),
-    ...(!open && {
-        ...closedMixin(theme),
-        "& .MuiDrawer-paper": closedMixin(theme),
-    }),
-}));
+// const Drawer = styled(MuiDrawer, {
+//     shouldForwardProp: (prop) => prop !== "open",
+// })(({ theme, open }) => ({
+//     width: drawerWidth,
+//     flexShrink: 0,
+//     whiteSpace: "nowrap",
+//     boxSizing: "border-box",
+//     ...(open && {
+//         ...openedMixin(theme),
+//         "& .MuiDrawer-paper": openedMixin(theme),
+//     }),
+//     ...(!open && {
+//         ...closedMixin(theme),
+//         "& .MuiDrawer-paper": closedMixin(theme),
+//     }),
+// }));
 
 const ViewReservation = () => {
     const api = "/api/v1/checkout";
@@ -122,13 +123,13 @@ const ViewReservation = () => {
         setPage(0);
     };
 
-    const handleDrawerOpen = () => {
-        setOpen(true);
-    };
+    // const handleDrawerOpen = () => {
+    //     setOpen(true);
+    // };
 
-    const handleDrawerClose = () => {
-        setOpen(false);
-    };
+    // const handleDrawerClose = () => {
+    //     setOpen(false);
+    // };
 
     useEffect(() => {
         Http.get(api)
@@ -314,22 +315,6 @@ const ViewReservation = () => {
     //     });
     // };
 
-    const useStyles = makeStyles((theme) => ({
-        root: {
-            display: "flex",
-        },
-
-        content: {
-            flexGrow: 1,
-            padding: theme.spacing(12),
-        },
-        container: {
-            maxHeight: 650,
-        },
-    }));
-
-    const classes = useStyles();
-
     const columns = [
         { id: "slotID", label: "Slot ID", minWidth: 100 },
         {
@@ -384,11 +369,27 @@ const ViewReservation = () => {
 
     const rows = dataState;
 
+    const useStyles = makeStyles((theme) => ({
+        root: {
+            display: "flex",
+        },
+
+        content: {
+            flexGrow: 1,
+            padding: theme.spacing(3, 3),
+        },
+    }));
+    const classes = useStyles();
+
     return (
         <>
-            <Box sx={{ display: "flex" }}>
+            <div className={classes.root}>
+                <AdminHeader />
                 <CssBaseline />
-                <AppBar position="fixed" open={open}>
+                <main className={classes.content}>
+                    <Box sx={{ display: "flex" }}>
+                        <CssBaseline />
+                        {/* <AppBar position="fixed" open={open}>
                     <Toolbar>
                         <IconButton
                             color="inherit"
@@ -481,6 +482,7 @@ const ViewReservation = () => {
                                 </ListItemButton>
                             </ListItem>
                         </Link>
+
                         <Link
                             tag={Link}
                             to="/view-reservation"
@@ -544,159 +546,180 @@ const ViewReservation = () => {
                             </ListItem>
                         </Link>
                     </List>
-                </Drawer>
-                <Box
-                    component="main"
-                    sx={{ flexGrow: 1, p: 3 }}
-                    style={{ marginTop: "50px" }}
-                >
-                    <main className={classes.content}>
-                        <div className="col">
-                            <div className="todos">
-                                <h1 className="text-center mb-4">
-                                    List of Reservation
-                                </h1>
-                                <Paper className={classes.root}>
-                                    <TableContainer
-                                        className={classes.container}
-                                    >
-                                        <Table
-                                            stickyHeader
-                                            aria-label="sticky table"
-                                        >
-                                            <TableHead>
-                                                <TableRow>
-                                                    {columns.map((column) => (
-                                                        <TableCell
-                                                            key={column.id}
-                                                            align={column.align}
-                                                            style={{
-                                                                minWidth:
-                                                                    column.minWidth,
-                                                            }}
-                                                        >
-                                                            {column.label}
-                                                        </TableCell>
-                                                    ))}
-                                                </TableRow>
-                                            </TableHead>
-                                            <TableBody>
-                                                {rows
-                                                    .slice(
-                                                        page * rowsPerPage,
-                                                        page * rowsPerPage +
-                                                            rowsPerPage
-                                                    )
-                                                    .map((row) => {
-                                                        return (
-                                                            <TableRow
-                                                                hover
-                                                                role="checkbox"
-                                                                tabIndex={-1}
-                                                                key={row.id}
-                                                            >
-                                                                {columns.map(
-                                                                    (
-                                                                        column
-                                                                    ) => {
-                                                                        const value =
-                                                                            row[
-                                                                                column
-                                                                                    .id
-                                                                            ];
-                                                                        return (
-                                                                            <TableCell
-                                                                                key={
-                                                                                    column.id
-                                                                                }
-                                                                                align={
-                                                                                    column.align
-                                                                                }
-                                                                            >
-                                                                                {column.format
-                                                                                    ? column.format(
-                                                                                          value
-                                                                                      )
-                                                                                    : value}
+                </Drawer> */}
 
-                                                                                {column.id ===
-                                                                                "approve" ? (
-                                                                                    <button
-                                                                                        onClick={() => {
-                                                                                            approveStatusUpdate(
-                                                                                                row
-                                                                                            );
-                                                                                        }}
-                                                                                        disabled={
-                                                                                            row.reservationStatus ===
-                                                                                            "Confirmed"
+                        <Box
+                            component="main"
+                            sx={{ flexGrow: 1, p: 3 }}
+                            style={{ marginTop: "50px" }}
+                        >
+                            <main className={classes.content}>
+                                <div className="col">
+                                    <div className="todos">
+                                        <h1 className="text-center mb-4">
+                                            List of Reservation
+                                        </h1>
+                                        <Paper className={classes.root}>
+                                            <TableContainer
+                                                className={classes.container}
+                                            >
+                                                <Table
+                                                    stickyHeader
+                                                    aria-label="sticky table"
+                                                >
+                                                    <TableHead>
+                                                        <TableRow>
+                                                            {columns.map(
+                                                                (column) => (
+                                                                    <TableCell
+                                                                        key={
+                                                                            column.id
+                                                                        }
+                                                                        align={
+                                                                            column.align
+                                                                        }
+                                                                        style={{
+                                                                            minWidth:
+                                                                                column.minWidth,
+                                                                        }}
+                                                                    >
+                                                                        {
+                                                                            column.label
+                                                                        }
+                                                                    </TableCell>
+                                                                )
+                                                            )}
+                                                        </TableRow>
+                                                    </TableHead>
+                                                    <TableBody>
+                                                        {rows
+                                                            .slice(
+                                                                page *
+                                                                    rowsPerPage,
+                                                                page *
+                                                                    rowsPerPage +
+                                                                    rowsPerPage
+                                                            )
+                                                            .map((row) => {
+                                                                return (
+                                                                    <TableRow
+                                                                        hover
+                                                                        role="checkbox"
+                                                                        tabIndex={
+                                                                            -1
+                                                                        }
+                                                                        key={
+                                                                            row.id
+                                                                        }
+                                                                    >
+                                                                        {columns.map(
+                                                                            (
+                                                                                column
+                                                                            ) => {
+                                                                                const value =
+                                                                                    row[
+                                                                                        column
+                                                                                            .id
+                                                                                    ];
+                                                                                return (
+                                                                                    <TableCell
+                                                                                        key={
+                                                                                            column.id
                                                                                         }
-                                                                                        style={{
-                                                                                            border: "none",
-                                                                                            borderRadius:
-                                                                                                "0px",
-                                                                                            outline:
-                                                                                                "transparent",
-                                                                                            background:
-                                                                                                "transparent",
-                                                                                        }}
-                                                                                    >
-                                                                                        <ThumbUpIcon />
-                                                                                    </button>
-                                                                                ) : column.id ===
-                                                                                  "reject" ? (
-                                                                                    <button
-                                                                                        onClick={() => {
-                                                                                            rejectStatusUpdate(
-                                                                                                row
-                                                                                            );
-                                                                                        }}
-                                                                                        disabled={
-                                                                                            row.reservationStatus ===
-                                                                                            "Rejected"
+                                                                                        align={
+                                                                                            column.align
                                                                                         }
-                                                                                        style={{
-                                                                                            border: "none",
-                                                                                            borderRadius:
-                                                                                                "0px",
-                                                                                            outline:
-                                                                                                "transparent",
-                                                                                            background:
-                                                                                                "transparent",
-                                                                                        }}
                                                                                     >
-                                                                                        <ThumbDownIcon />
-                                                                                    </button>
-                                                                                ) : (
-                                                                                    <h6></h6>
-                                                                                )}
-                                                                            </TableCell>
-                                                                        );
-                                                                    }
-                                                                )}
-                                                            </TableRow>
-                                                        );
-                                                    })}
-                                            </TableBody>
-                                        </Table>
-                                        <TablePagination
-                                            rowsPerPageOptions={[10, 25, 100]}
-                                            component="div"
-                                            count={rows.length}
-                                            rowsPerPage={rowsPerPage}
-                                            page={page}
-                                            onPageChange={handleChangePage}
-                                            onRowsPerPageChange={
-                                                handleChangeRowsPerPage
-                                            }
-                                        />
-                                    </TableContainer>
-                                </Paper>
-                            </div>
-                        </div>
-                    </main>
-                </Box>
-            </Box>
+                                                                                        {column.format
+                                                                                            ? column.format(
+                                                                                                  value
+                                                                                              )
+                                                                                            : value}
+
+                                                                                        {column.id ===
+                                                                                        "approve" ? (
+                                                                                            <button
+                                                                                                onClick={() => {
+                                                                                                    approveStatusUpdate(
+                                                                                                        row
+                                                                                                    );
+                                                                                                }}
+                                                                                                disabled={
+                                                                                                    row.reservationStatus ===
+                                                                                                    "Confirmed"
+                                                                                                }
+                                                                                                style={{
+                                                                                                    border: "none",
+                                                                                                    borderRadius:
+                                                                                                        "0px",
+                                                                                                    outline:
+                                                                                                        "transparent",
+                                                                                                    background:
+                                                                                                        "transparent",
+                                                                                                }}
+                                                                                            >
+                                                                                                <ThumbUpIcon />
+                                                                                            </button>
+                                                                                        ) : column.id ===
+                                                                                          "reject" ? (
+                                                                                            <button
+                                                                                                onClick={() => {
+                                                                                                    rejectStatusUpdate(
+                                                                                                        row
+                                                                                                    );
+                                                                                                }}
+                                                                                                disabled={
+                                                                                                    row.reservationStatus ===
+                                                                                                    "Rejected"
+                                                                                                }
+                                                                                                style={{
+                                                                                                    border: "none",
+                                                                                                    borderRadius:
+                                                                                                        "0px",
+                                                                                                    outline:
+                                                                                                        "transparent",
+                                                                                                    background:
+                                                                                                        "transparent",
+                                                                                                }}
+                                                                                            >
+                                                                                                <ThumbDownIcon />
+                                                                                            </button>
+                                                                                        ) : (
+                                                                                            <h6></h6>
+                                                                                        )}
+                                                                                    </TableCell>
+                                                                                );
+                                                                            }
+                                                                        )}
+                                                                    </TableRow>
+                                                                );
+                                                            })}
+                                                    </TableBody>
+                                                </Table>
+                                                <TablePagination
+                                                    rowsPerPageOptions={[
+                                                        10, 25, 100,
+                                                    ]}
+                                                    component="div"
+                                                    count={rows.length}
+                                                    rowsPerPage={rowsPerPage}
+                                                    page={page}
+                                                    onPageChange={
+                                                        handleChangePage
+                                                    }
+                                                    onRowsPerPageChange={
+                                                        handleChangeRowsPerPage
+                                                    }
+                                                />
+                                            </TableContainer>
+                                        </Paper>
+                                    </div>
+                                </div>
+                            </main>
+                        </Box>
+                    </Box>
+                </main>
+            </div>
         </>
     );
 };
