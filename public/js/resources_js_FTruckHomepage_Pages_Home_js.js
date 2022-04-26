@@ -1262,7 +1262,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/Arrow Right.svg?e262efe337d5a5bed1d60a28c383635f");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/Arrow Right.svg?42eb16db5e08ef17b2cce11777c2c376");
 
 /***/ }),
 
@@ -1517,7 +1517,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/hand.svg?e14e852afa6101e25c365fe655829695");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/hand.svg?86c7a6f7169a202ec32a6cf631f11ec3");
 
 /***/ }),
 
@@ -1532,7 +1532,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/human.svg?7430a07a5e49fbda99d4b38ea3d0c97a");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/human.svg?e976c9c403fcbf54f234366fbc99d9b1");
 
 /***/ }),
 
@@ -1577,7 +1577,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/logo.svg?77646688f32f3fd707913e06fee83eaa");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/logo.svg?ecb09118c602d997da81e3e8f08336b3");
 
 /***/ }),
 
@@ -1652,7 +1652,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/waves.svg?bee224437843cd1b06be4e0fd12aba9d");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/waves.svg?c211ccb950a70990d5beff54e5f68bed");
 
 /***/ }),
 

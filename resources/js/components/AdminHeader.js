@@ -186,6 +186,13 @@ const AdminHeader = (props) => {
         });
     };
 
+    const handleRedirectToHomepage = (e) => {
+        e.preventDefault();
+        props.dispatch(actions.authLogout());
+        history.push("/");
+
+    };
+
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -235,7 +242,9 @@ const AdminHeader = (props) => {
                             style={{
                                 color: "white",
                                 fontSize: "medium",
+                                textDecoration: "none",
                             }}
+                            onClick={handleRedirectToHomepage}
                         >
                             F_Truck
                         </Link>

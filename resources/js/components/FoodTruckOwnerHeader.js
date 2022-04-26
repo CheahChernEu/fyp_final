@@ -123,6 +123,13 @@ const FoodTruckOwnerHeader = (props) => {
         });
     };
 
+    const handleRedirectToHome = (e) => {
+        e.preventDefault();
+        props.dispatch(actions.authLogout());
+        history.push("/");
+    };
+
+
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -226,7 +233,9 @@ const FoodTruckOwnerHeader = (props) => {
                             style={{
                                 color: "white",
                                 fontSize: "medium",
+                                textDecoration: "none",
                             }}
+                            onClick={handleRedirectToHome}
                         >
                             F_Truck
                         </Link>

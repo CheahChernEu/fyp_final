@@ -6,14 +6,16 @@ const HomeHeader = (props) => {
     return (
         <header
             className="d-flex align-items-center justify-content-between"
-            style={{ background: "#35353f" }}
+            style={{ background: "#35353f", height: "64px" }}
         >
-            <h1 className="logo my-0 font-weight-normal h4">
+            <h1 className="logo my-0 font-weight-normal h3">
                 <Link
                     to="/"
                     style={{
                         color: "white",
-                        fontWeight: "bold",
+                        textDecoration: "none",
+                        display: "inline",
+                        fontWeight: "normal"
                     }}
                 >
                     F_Truck

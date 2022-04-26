@@ -132,7 +132,8 @@ var Header = function Header() {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(Logo, {
       style: {
         color: "white",
-        fontWeight: "bold"
+        fontWeight: "bold",
+        textDecoration: "none"
       },
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", {
         children: "F_Truck"

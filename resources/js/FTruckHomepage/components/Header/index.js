@@ -236,7 +236,7 @@ const Header = () => {
 
     return (
         <Headers ref={ref}>
-            <Logo style={{ color: "white", fontWeight: "bold" }}>
+            <Logo style={{ color: "white", fontWeight: "bold", textDecoration: "none" }}>
                 <h3>F_Truck</h3>
             </Logo>
             <Nav>
